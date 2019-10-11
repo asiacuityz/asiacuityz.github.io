@@ -1,0 +1,811 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="JVM内存模型, Asia">
+    <meta name="description" content="
+Java 开发有个很基础的问题，虽然我们平时接触的不多，但是了解它却成为 Java 开发的必备基础——这就是 JVM。在 C++ 中我们需要手动申请内存然后释放内存，否则就会出现对象已经不再使用内存却仍被占用的情况。在 Java 中 JV">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JVM内存模型 | Asia</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-base16-ateliersulphurpool.light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Asia</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/utils" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-book"></i>
+            
+            <span>工具</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/doc" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-wordpress"></i>
+            
+            <span>文档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>伙伴</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Asia</div>
+        <div class="logo-desc">
+            
+            不心累
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/utils" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-book"></i>
+                
+                工具
+            </a>
+        </li>
+        
+        <li>
+            <a href="/doc" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-wordpress"></i>
+                
+                文档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                伙伴
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/asiacuityz" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>关于
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/asiacuityz" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="关于" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        JVM内存模型
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/道/" target="_blank">
+                    <span class="chip bg-color">道</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/JVM内存模型/" class="post-category" target="_blank">
+                        JVM内存模型
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-02-16
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>Java 开发有个很基础的问题，虽然我们平时接触的不多，但是了解它却成为 Java 开发的必备基础——这就是 JVM。在 C++ 中我们需要手动申请内存然后释放内存，否则就会出现对象已经不再使用内存却仍被占用的情况。在 Java 中 JVM 内置了垃圾回收的机制，帮助开发者承担对象的创建和释放的工作，极大的减轻了开发的负担。那是不是我们就不需要了解 JVM 了，显然在做一些优化或者深入研究应用性能的时候，JVM 还是起了很关键的作用的。因此本篇就总结性的描述下 JVM 的内存模型与垃圾回收相关的知识。</p>
+</blockquote>
+<p>本文的主要内容如下：</p>
+<ul>
+<li>内存模型</li>
+<li>垃圾回收</li>
+<li>参考文章</li>
+</ul>
+<h1 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h1><p><img src="/images/道/20150720152805765.png" alt></p>
+<h2 id="模型详解"><a href="#模型详解" class="headerlink" title="模型详解"></a>模型详解</h2><h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器（Program Counter Register）是一块较小的内存空间，它的作用可以看做是当前线程所执行的字节码的行号指示器。字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。由于Java 虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）只会执行一条线程中的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间的计数器互不影响，独立存储，我们称这类内存区域为<strong>线程私有</strong>的内存。</p>
+<h3 id="Java-虚拟机栈"><a href="#Java-虚拟机栈" class="headerlink" title="Java 虚拟机栈"></a>Java 虚拟机栈</h3><p>Java 虚拟机栈（Java Virtual Machine Stacks）也是<strong>线程私有</strong>的，它的生命周期与线程相同。虚拟机栈描述的是Java 方法执行的内存模型：<strong>每个方法被执行的时候都会同时创建一个栈帧用于存储局部变量表、操作栈、动态链接、方法出口等信息。</strong>每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+<p>局部变量表存放了编译期可知的各种基本数据类型（boolean、byte、char、short、int、float、long、double）、对象引用（reference 类型，它不等同于对象本身，根据不同的虚拟机实现，它可能是一个指向对象起始地址的引用指针，也可能指向一个代表对象的句柄或者其他与此对象相关的位置）和returnAddress 类型（指向了一条字节码指令的地址）。其中64 位长度的long 和double 类型的数据会占用2 个局部变量空间（Slot），其余的数据类型只占用1 个。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。</p>
+<p>在Java 虚拟机规范中，对这个区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError 异常；如果虚拟机栈可以动态扩展（当前大部分的Java 虚拟机都可动态扩展，只不过Java 虚拟机规范中也允许固定长度的虚拟机栈），当扩展时无法申请到足够的内存时会抛出OutOfMemoryError 异常。</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>本地方法栈（Native Method Stacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是虚拟机栈为虚拟机执行Java 方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native 方法服务。虚拟机规范中对本地方法栈中的方法使用的语言、使用方式与数据结构并没有强制规定，因此具体的虚拟机可以自由实现它。甚至有的虚拟机（譬如Sun HotSpot 虚拟机）直接就把本地方法栈和虚拟机栈合二为一。与虚拟机栈一样，本地方法栈区域也会抛出StackOverflowError 和OutOfMemoryError异常。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>对于大多数应用来说，Java 堆（Java Heap）是Java 虚拟机所管理的内存中最大的一块。Java 堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，所以Java 堆中还可以细分为：新生代和老年代；再细致一点的有Eden 空间、From Survivor 空间、To Survivor 空间等。如果从内存分配的角度看，线程共享的Java 堆中可能划分出多个线程私有的分配缓冲区（Thread LocalAllocation Buffer，TLAB）。不过，无论如何划分，都与存放内容无关，无论哪个区域，存储的都仍然是对象实例，进一步划分的目的是为了更好地回收内存，或者更快地分配内存。</p>
+<p>根据Java 虚拟机规范的规定，Java 堆可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样。在实现时，既可以实现成固定大小的，也可以是可扩展的，不过当前主流的虚拟机都是按照可扩展来实现的（通过-Xmx和-Xms 控制）。如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将会抛出OutOfMemoryError 异常。</p>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>方法区（Method Area）与Java 堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机<strong>加载的类信息、常量、静态变量、即时编译器编译后的代码</strong>等数据。虽然Java 虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做Non-Heap（非堆），目的应该是与Java 堆区分开来。对于习惯在HotSpot 虚拟机上开发和部署程序的开发者来说，很多人愿意把方法区称为“永久代”（Permanent Generation），本质上两者并不等价，仅仅是因为HotSpot 虚拟机的设计团队选择把GC 分代收集扩展至方法区，或者说使用永久代来实现方法区而已。对于其他虚拟机（如BEA JRockit、IBM J9 等）来说是不存在永久代的概念的。</p>
+<p>Java 虚拟机规范对这个区域的限制非常宽松，除了和Java 堆一样不需要连续的内存和可以选择固定大小或者可扩展外，还可以选择不实现垃圾收集。相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入了方法区就如永久代的名字一样“永久”存在了。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载，一般来说这个区域的回收“成绩”比较难以令人满意，尤其是类型的卸载，条件相当苛刻，但是这部分区域的回收确实是有必要的。在Sun 公司的BUG 列表中，曾出现过的若干个严重的BUG 就是由于低版本的HotSpot 虚拟机对此区域未完全回收而导致内存泄漏。根据Java 虚拟机规范的规定，当方法区无法满足内存分配需求时，将抛出OutOfMemoryError 异常。</p>
+<h2 id="各部分的功能"><a href="#各部分的功能" class="headerlink" title="各部分的功能"></a>各部分的功能</h2><p>这几个存储区最主要的就是栈区和堆区，那么什么是栈什么是堆呢？说的简单点，栈里面存放的是基本的数据类型和引用，而堆里面则是存放各种对象实例的。<br><img src="/images/道/wh_651x-s_286560225.png" alt></p>
+<p>堆与栈分开设计是为什么呢？</p>
+<ul>
+<li>栈存储了处理逻辑、堆存储了具体的数据，这样隔离设计更为清晰</li>
+<li>堆与栈分离，使得堆可以被多个栈共享。</li>
+<li>栈保存了上下文的信息，因此只能向上增长；而堆是动态分配</li>
+</ul>
+<p>栈的大小可以通过 - XSs 设置，如果不足的话，会引起 java.lang.StackOverflowError 的异常</p>
+<h4 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h4><p>线程私有，生命周期与线程相同。每个方法执行的时候都会创建一个栈帧（stack frame）用于存放 局部变量表、操作栈、动态链接、方法出口。</p>
+<h4 id="堆-1"><a href="#堆-1" class="headerlink" title="堆"></a>堆</h4><p>存放对象实例，所有的对象的内存都在这里分配。垃圾回收主要就是作用于这里的。</p>
+<ul>
+<li>堆得内存由 - Xms 指定，默认是物理内存的 1/64；最大的内存由 - Xmx 指定，默认是物理内存的 1/4。</li>
+<li>默认空余的堆内存小于 40% 时，就会增大，直到 - Xmx 设置的内存。具体的比例可以由 - XX:MinHeapFreeRatio 指定</li>
+<li>空余的内存大于 70% 时，就会减少内存，直到 - Xms 设置的大小。具体由 - XX:MaxHeapFreeRatio 指定。</li>
+</ul>
+<p>因此一般都建议把这两个参数设置成一样大，可以避免 JVM 在不断调整大小。</p>
+<h4 id="程序计数器-1"><a href="#程序计数器-1" class="headerlink" title="程序计数器"></a>程序计数器</h4><p>这里记录了线程执行的字节码的行号，在分支、循环、跳转、异常、线程恢复等都依赖这个计数器。</p>
+<h4 id="方法区-1"><a href="#方法区-1" class="headerlink" title="方法区"></a>方法区</h4><p>类型信息、字段信息、方法信息、其他信息</p>
+<p>总结</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>特征</th>
+<th>作用</th>
+<th>配置</th>
+<th>异常</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>栈区</td>
+<td>线程私有，使用一段连续的内存空间</td>
+<td>存放局部变量表、操作栈、动态链接、方法出口</td>
+<td>-XSs</td>
+<td>StackOverflowError OutOfMemoryError</td>
+</tr>
+<tr>
+<td>堆</td>
+<td>线程共享，生命周期与虚拟机相同</td>
+<td>保存对象实例</td>
+<td>-Xms -Xmx -Xmn</td>
+<td>OutOfMemoryError</td>
+</tr>
+<tr>
+<td>程序计数器</td>
+<td>线程私有、占用内存小</td>
+<td>字节码行号</td>
+<td>无</td>
+<td>无</td>
+</tr>
+<tr>
+<td>方法区</td>
+<td>线程共享</td>
+<td>存储类加载信息、常量、静态变量等</td>
+<td>-XX:PermSize -XX:MaxPermSize</td>
+<td>OutOfMemoryError</td>
+</tr>
+</tbody>
+</table>
+<h1 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h1><h2 id="如何定义垃圾"><a href="#如何定义垃圾" class="headerlink" title="如何定义垃圾"></a>如何定义垃圾</h2><p>有两种方式，一种是引用计数（但是无法解决循环引用的问题）；另一种就是可达性分析。</p>
+<p>判断对象可以回收的情况：</p>
+<ul>
+<li>显示的把某个引用置位 NULL 或者指向别的对象</li>
+<li>局部引用指向的对象</li>
+<li>弱引用关联的对象</li>
+</ul>
+<h2 id="垃圾回收的方法"><a href="#垃圾回收的方法" class="headerlink" title="垃圾回收的方法"></a>垃圾回收的方法</h2><h4 id="Mark-Sweep-标记-清除算法"><a href="#Mark-Sweep-标记-清除算法" class="headerlink" title="Mark-Sweep 标记 - 清除算法"></a>Mark-Sweep 标记 - 清除算法</h4><p><img src="/images/道/341412-20170310115901922-1449104761.png" alt></p>
+<p>这种方法优点就是减少停顿时间，但是缺点是会造成内存碎片。</p>
+<h4 id="Copying-复制算法"><a href="#Copying-复制算法" class="headerlink" title="Copying 复制算法"></a>Copying 复制算法</h4><p><img src="/images/道/341412-20170310115901922-1449104762.png" alt></p>
+<p>这种方法不涉及到对象的删除，只是把<strong>标记为可用</strong>的对象从一个地方拷贝到另一个地方，因此适合大量对象回收的场景，比如新生代的回收。</p>
+<h4 id="Mark-Compact-标记-整理算法"><a href="#Mark-Compact-标记-整理算法" class="headerlink" title="Mark-Compact 标记 - 整理算法"></a>Mark-Compact 标记 - 整理算法</h4><p><img src="/images/道/341412-20170310115901922-1449104763.png" alt></p>
+<p>这种方法可以解决内存碎片问题，但是会增加停顿时间。</p>
+<h4 id="Generational-Collection-分代收集"><a href="#Generational-Collection-分代收集" class="headerlink" title="Generational Collection 分代收集"></a>Generational Collection 分代收集</h4><p>最后的这种方法是前面几种的合体，即目前 JVM 主要采取的一种方法，思想就是把 JVM 分成不同的区域。每种区域使用不同的垃圾回收方法。</p>
+<p><img src="/images/道/341412-20170310115901922-1449104764.png" alt></p>
+<p>上面可以看到堆分成两个个区域：</p>
+<ul>
+<li>新生代 (Young Generation)：用于存放新创建的对象，采用复制回收方法，如果在 s0 和 s1 之间复制一定次数后，转移到年老代中。这里的垃圾回收叫做 minor GC;</li>
+<li>年老代 (Old Generation)：这些对象垃圾回收的频率较低，采用的标记整理方法，这里的垃圾回收叫做 major GC。</li>
+</ul>
+<p>这里可以详细的说一下新生代复制回收的算法流程：</p>
+<p>在新生代中，分为三个区：Eden, from survivor, to survior。</p>
+<ul>
+<li>当触发 minor GC 时，会先把 Eden 中存活的对象复制到 to Survivor 中；</li>
+<li>然后再看 from survivor，如果次数达到年老代的标准，就复制到年老代中；如果没有达到则复制到 to survivor 中，如果 to survivor 满了，则复制到年老代中。</li>
+<li>然后调换 from survivor 和 to survivor 的名字，保证每次 to survivor 都是空的等待对象复制到那里的。</li>
+</ul>
+<h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><p><img src="/images/道/341412-20170310115901922-1449104765.png" alt></p>
+<h4 id="串行收集器-Serial"><a href="#串行收集器-Serial" class="headerlink" title="串行收集器 Serial"></a>串行收集器 Serial</h4><p>这种收集器就是以单线程的方式收集，垃圾回收的时候其他线程也不能工作。<br><img src="/images/道/341412-20170310115901922-1449104766.png" alt></p>
+<h4 id="并行收集器-Parallel"><a href="#并行收集器-Parallel" class="headerlink" title="并行收集器 Parallel"></a>并行收集器 Parallel</h4><p>以多线程的方式进行收集<br><img src="/images/道/341412-20170310115901922-1449104767.png" alt></p>
+<h4 id="并发标记清除收集器-Concurrent-Mark-Sweep-Collector-CMS"><a href="#并发标记清除收集器-Concurrent-Mark-Sweep-Collector-CMS" class="headerlink" title="并发标记清除收集器 Concurrent Mark Sweep Collector, CMS"></a>并发标记清除收集器 Concurrent Mark Sweep Collector, CMS</h4><p>大致的流程为：初始标记 – 并发标记 – 重新标记 – 并发清除</p>
+<p><img src="/images/道/341412-20170310115901922-1449104768.png" alt></p>
+<h4 id="G1-收集器-Garbage-First-Collector"><a href="#G1-收集器-Garbage-First-Collector" class="headerlink" title="G1 收集器 Garbage First Collector"></a>G1 收集器 Garbage First Collector</h4><p>大致的流程为：初始标记 – 并发标记 – 最终标记 – 筛选回收</p>
+<p><img src="/images/道/341412-20170310115901922-1449104769.png" alt></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>JVM 内存模型：<a href="http://developer.51cto.com/art/200911/165015.htm" target="_blank" rel="noopener">http://developer.51cto.com/art/200911/165015.htm</a></li>
+<li>垃圾回收：<a href="http://www.importnew.com/19085.html" target="_blank" rel="noopener">http://www.importnew.com/19085.html</a></li>
+<li>JVM 垃圾回收器：<a href="http://www.cnblogs.com/chengxuyuanzhilu/p/7088316.html" target="_blank" rel="noopener">http://www.cnblogs.com/chengxuyuanzhilu/p/7088316.html</a></li>
+<li>内存模型： <a href="http://blog.csdn.net/u012152619/article/details/46968883" target="_blank" rel="noopener">http://blog.csdn.net/u012152619/article/details/46968883</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">Reprint please specify: </span>
+                    <a href="https://asiacuityz.github.io" class="b-link-green">Asia</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/02/16/JVM内存模型/" class="b-link-green">JVM内存模型</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">Previous</div>
+            <div class="card">
+                <a href="/2019/02/20/Java成神之路/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Java成神之路">
+                        
+                        <span class="card-title">Java成神之路</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一、基础篇面向对象→ 什么是面向对象面向对象、面向过程
+面向对象的三大基本特征和五大基本原则
+→ 平台无关性Java 如何实现的平台无关
+JVM 还支持哪些语言（Kotlin、Groovy、JRuby、Jython、Scala）
+→ 值传递</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java成神之路/" class="post-category" target="_blank">
+                                    Java成神之路
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/道/" target="_blank">
+                        <span class="chip bg-color">道</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">Next</div>
+            <div class="card">
+                <a href="/2019/02/16/RabbitMQ详解/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="RabbitMQ详解">
+                        
+                        <span class="card-title">RabbitMQ详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">RabbitMQ 即一个消息队列，主要是用来实现应用程序的异步和解耦，同时也能起到消息缓冲，消息分发的作用。
+消息中间件在互联网公司的使用中越来越多，刚才还看到新闻阿里将 RocketMQ 捐献给了 apache，当然了今天的主角还是讲 R</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/RabbitMQ详解/" class="post-category" target="_blank">
+                                    RabbitMQ详解
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/消息队列/" target="_blank">
+                        <span class="chip bg-color">消息队列</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">TOC</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            <!--本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 采用
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>的主题搭建. -->
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131536389-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131536389-1');
+</script>
+
+
+</body>
+</html>

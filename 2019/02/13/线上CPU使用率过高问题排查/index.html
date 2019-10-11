@@ -1,0 +1,774 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="线上CPU使用率过高问题排查, Asia">
+    <meta name="description" content="1、故障现象客服同事反馈平台系统运行缓慢，网页卡顿严重，多次重启系统后问题依然存在，使用 top 命令查看服务器情况，发现 CPU 占用率过高。
+2、CPU 占用过高问题定位2.1、定位问题进程使用top 命令查看资源占用情况，发现 pid">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>线上CPU使用率过高问题排查 | Asia</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-base16-ateliersulphurpool.light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Asia</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/utils" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-book"></i>
+            
+            <span>工具</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/doc" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-wordpress"></i>
+            
+            <span>文档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>伙伴</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Asia</div>
+        <div class="logo-desc">
+            
+            不心累
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/utils" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-book"></i>
+                
+                工具
+            </a>
+        </li>
+        
+        <li>
+            <a href="/doc" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-wordpress"></i>
+                
+                文档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                伙伴
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/asiacuityz" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>关于
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/asiacuityz" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="关于" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        线上CPU使用率过高问题排查
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/经验/" target="_blank">
+                    <span class="chip bg-color">经验</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/线上CPU使用率过高问题排查/" class="post-category" target="_blank">
+                        线上CPU使用率过高问题排查
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-02-13
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1、故障现象"><a href="#1、故障现象" class="headerlink" title="1、故障现象"></a>1、故障现象</h2><p>客服同事反馈平台系统运行缓慢，网页卡顿严重，多次重启系统后问题依然存在，使用 top 命令查看<a href="https://www.baidu.com/s?wd=%E6%9C%8D%E5%8A%A1%E5%99%A8&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank" rel="noopener">服务器</a>情况，发现 CPU 占用率过高。</p>
+<h2 id="2、CPU-占用过高问题定位"><a href="#2、CPU-占用过高问题定位" class="headerlink" title="2、CPU 占用过高问题定位"></a>2、CPU 占用过高问题定位</h2><h3 id="2-1、定位问题进程"><a href="#2-1、定位问题进程" class="headerlink" title="2.1、定位问题进程"></a>2.1、定位问题进程</h3><p>使用<code>top</code> 命令查看资源占用情况，发现 pid 为 14063 的进程占用了大量的 CPU 资源，CPU 占用率高达 776.1%，内存占用率也达到了 29.8%</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>ylp@ylp-web-01 ~<span class="token punctuation">]</span>$ <span class="token function">top</span>
+<span class="token function">top</span> - 14:51:10 up 233 days, 11:40,  7 users,  load average: 6.85, 5.62, 3.97
+Tasks: 192 total,   2 running, 190 sleeping,   0 stopped,   0 zombie
+%Cpu<span class="token punctuation">(</span>s<span class="token punctuation">)</span>: 97.3 us,  0.3 sy,  0.0 ni,  2.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem <span class="token keyword">:</span> 16268652 total,  5114392 free,  6907028 used,  4247232 buff/cache
+KiB Swap:  4063228 total,  3989708 free,    73520 used.  8751512 avail Mem 
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                               
+
+14063 ylp       20   0 9260488 4.627g  11976 S 776.1 29.8 117:41.66 java
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-2、定位问题线程"><a href="#2-2、定位问题线程" class="headerlink" title="2.2、定位问题线程"></a>2.2、定位问题线程</h3><p>使用 <code>ps -mp pid -o THREAD,tid,time</code> 命令查看该进程的线程情况，发现该进程的多个线程占用率很高</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>ylp@ylp-web-01 ~<span class="token punctuation">]</span>$ <span class="token function">ps</span> -mp 14063 -o THREAD,tid,time
+USER     %CPU PRI SCNT WCHAN  USER SYSTEM   TID     TIME
+ylp       361   -    - -         -      -     - 02:05:58
+ylp       0.0  19    - futex_    -      - 14063 00:00:00
+ylp       0.0  19    - poll_s    -      - 14064 00:00:00
+ylp      44.5  19    - -         -      - 14065 00:15:30
+ylp      44.5  19    - -         -      - 14066 00:15:30
+ylp      44.4  19    - -         -      - 14067 00:15:29
+ylp      44.5  19    - -         -      - 14068 00:15:30
+ylp      44.5  19    - -         -      - 14069 00:15:30
+ylp      44.5  19    - -         -      - 14070 00:15:30
+ylp      44.5  19    - -         -      - 14071 00:15:30
+ylp      44.6  19    - -         -      - 14072 00:15:32
+ylp       2.2  19    - futex_    -      - 14073 00:00:46
+ylp       0.0  19    - futex_    -      - 14074 00:00:00
+ylp       0.0  19    - futex_    -      - 14075 00:00:00
+ylp       0.0  19    - futex_    -      - 14076 00:00:00
+ylp       0.7  19    - futex_    -      - 14077 00:00:15
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TIME 列就是各个 Java 线程耗费的 CPU 时间，</p>
+<p>从输出信息可以看出，CPU 时间最长的是线程 ID 为 14065~14072 之间的线程 CPU 占用率都很高</p>
+<h3 id="2-3、查看问题线程堆栈"><a href="#2-3、查看问题线程堆栈" class="headerlink" title="2.3、查看问题线程堆栈"></a>2.3、查看问题线程堆栈</h3><p>挑选 TID 为 14065 的线程，查看该线程的堆栈情况，先将线程 id 转为 16 进制，使用 <code>printf &quot;%x\n&quot; tid</code> 命令进行转换</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>ylp@ylp-web-01 ~<span class="token punctuation">]</span>$ <span class="token function">printf</span> <span class="token string">"%x\n"</span> 1406536f1
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>OK，下一步终于轮到 jstack 上场了，它用来输出进程 14065 的堆栈信息，然后根据线程 ID 的十六进制值 grep，如下：</p>
+<p>再使用 jstack 命令打印线程堆栈信息，命令格式：<code>jstack pid |grep tid -A 30</code></p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>ylp@ylp-web-01 ~<span class="token punctuation">]</span>$ jstack 14063 <span class="token operator">|</span><span class="token function">grep</span> 36f1 -A 30
+<span class="token string">"GC task thread#0 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa35001e800 nid<span class="token operator">=</span>0x36f1 runnable 
+<span class="token string">"GC task thread#1 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa350020800 nid<span class="token operator">=</span>0x36f2 runnable 
+<span class="token string">"GC task thread#2 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa350022800 nid<span class="token operator">=</span>0x36f3 runnable 
+<span class="token string">"GC task thread#3 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa350024000 nid<span class="token operator">=</span>0x36f4 runnable 
+<span class="token string">"GC task thread#4 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa350026000 nid<span class="token operator">=</span>0x36f5 runnable 
+<span class="token string">"GC task thread#5 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa350028000 nid<span class="token operator">=</span>0x36f6 runnable 
+<span class="token string">"GC task thread#6 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa350029800 nid<span class="token operator">=</span>0x36f7 runnable 
+<span class="token string">"GC task thread#7 (ParallelGC)"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa35002b800 nid<span class="token operator">=</span>0x36f8 runnable 
+<span class="token string">"VM Periodic Task Thread"</span> prio<span class="token operator">=</span>10 tid<span class="token operator">=</span>0x00007fa3500a8800 nid<span class="token operator">=</span>0x3700 waiting on condition 
+
+JNI global references: 392
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从输出信息可以看出，此线程是 JVM 的 gc 线程。此时可以基本确定是内存不足或内存泄露导致 gc 线程持续运行，导致 CPU 占用过高。<br>所以接下来我们要找的内存方面的问题</p>
+<h2 id="3、内存问题定位"><a href="#3、内存问题定位" class="headerlink" title="3、内存问题定位"></a>3、内存问题定位</h2><h3 id="3-1、使用-jstat-gcutil命令查看进程的内存情况"><a href="#3-1、使用-jstat-gcutil命令查看进程的内存情况" class="headerlink" title="3.1、使用 jstat -gcutil命令查看进程的内存情况"></a>3.1、使用 <code>jstat -gcutil</code>命令查看进程的内存情况</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>ylp@ylp-web-01 ~<span class="token punctuation">]</span>$ jstat -gcutil 14063 2000 10
+
+  S0     S1     E      O      P     YGC     YGCT    FGC    FGCT     GCT   
+  0.00   0.00 100.00  99.99  26.31     42   21.917   218 1484.830 1506.747
+  0.00   0.00 100.00  99.99  26.31     42   21.917   218 1484.830 1506.747
+  0.00   0.00 100.00  99.99  26.31     42   21.917   219 1496.567 1518.484
+  0.00   0.00 100.00  99.99  26.31     42   21.917   219 1496.567 1518.484
+  0.00   0.00 100.00  99.99  26.31     42   21.917   219 1496.567 1518.484
+  0.00   0.00 100.00  99.99  26.31     42   21.917   219 1496.567 1518.484
+  0.00   0.00 100.00  99.99  26.31     42   21.917   219 1496.567 1518.484
+  0.00   0.00 100.00  99.99  26.31     42   21.917   220 1505.439 1527.355
+  0.00   0.00 100.00  99.99  26.31     42   21.917   220 1505.439 1527.355
+  0.00   0.00 100.00  99.99  26.31     42   21.917   220 1505.439 1527.355
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>jstat -gcutil <pid>: 统计 gc 信息:</pid></p>
+<p><img src="/images/其它/20181027222436315.png" alt></p>
+<p>从输出信息可以看出，Eden 区内存占用 100%，Old 区内存占用 99.99%，Full GC 的次数高达 220 次，并且频繁 Full GC，Full GC 的持续时间也特别长，平均每次 Full GC 耗时 6.8 秒（1505.439/220）。根据这些信息，基本可以确定是程序代码上出现了问题，可能存在不合理创建对象的地方</p>
+<h3 id="3-2、分析堆栈"><a href="#3-2、分析堆栈" class="headerlink" title="3.2、分析堆栈"></a>3.2、分析堆栈</h3><p>使用 <code>jstack</code> 命令查看进程的堆栈情况</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>ylp@ylp-web-01 ~<span class="token punctuation">]</span>$ jstack 14063 <span class="token operator">>></span>jstack.out
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>把 jstack.out 文件从服务器拿到本地后，用编辑器查找带有项目目录并且线程状态是 RUNABLE 的相关信息，从图中可以看出 ActivityUtil.java 类的 447 行正在使用 HashMap.put() 方法</p>
+<p><img src="/images/其它/2591074-4e124f0397f14970.png" alt></p>
+<h3 id="3-3、代码定位"><a href="#3-3、代码定位" class="headerlink" title="3.3、代码定位"></a>3.3、代码定位</h3><p>打开项目工程，找到 ActivityUtil 类的 477 行，代码如下：</p>
+<p><img src="/images/其它/2591074-c6cea99c8d1d7f85.png" alt></p>
+<p>找到相关同事了解后，这段代码会从数据库中获取配置，并根据数据库中 remain 的值进行循环，在循环中会一直对 HashMap 进行 put 操作。</p>
+<p>查询数据库中的配置，发现 remain 的数量巨大</p>
+<p><img src="/images/其它/2591074-df3d3331f85e6247.png" alt></p>
+<p>至此，问题定位完毕。</p>
+
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">Reprint please specify: </span>
+                    <a href="https://asiacuityz.github.io" class="b-link-green">Asia</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/02/13/线上CPU使用率过高问题排查/" class="b-link-green">线上CPU使用率过高问题排查</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">Previous</div>
+            <div class="card">
+                <a href="/2019/02/16/RabbitMQ详解/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="RabbitMQ详解">
+                        
+                        <span class="card-title">RabbitMQ详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">RabbitMQ 即一个消息队列，主要是用来实现应用程序的异步和解耦，同时也能起到消息缓冲，消息分发的作用。
+消息中间件在互联网公司的使用中越来越多，刚才还看到新闻阿里将 RocketMQ 捐献给了 apache，当然了今天的主角还是讲 R</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/RabbitMQ详解/" class="post-category" target="_blank">
+                                    RabbitMQ详解
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/消息队列/" target="_blank">
+                        <span class="chip bg-color">消息队列</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">Next</div>
+            <div class="card">
+                <a href="/2019/01/28/Eureka配置大全/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Eureka配置大全">
+                        
+                        <span class="card-title">Eureka配置大全</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Eureka客户端配置1、RegistryFetchIntervalSeconds
+从 eureka 服务器注册表中获取注册信息的时间间隔（s），默认为 30 秒
+2、InstanceInfoReplicationIntervalSecon</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Eureka/" class="post-category" target="_blank">
+                                    Eureka
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Spring-Cloud/" target="_blank">
+                        <span class="chip bg-color">Spring Cloud</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">TOC</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            <!--本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 采用
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>的主题搭建. -->
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131536389-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131536389-1');
+</script>
+
+
+</body>
+</html>

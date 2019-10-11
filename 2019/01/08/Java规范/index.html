@@ -1,0 +1,1406 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java规范, Asia">
+    <meta name="description" content="介绍1 目的编码规范对于程序员而言尤为首要，有以下几个原因：
+
+
+一个软件的生命周期中，80％的花费在于维护。
+几乎没有任何一个软件，在其全部生命周期中，均由最初的开辟人员来维护。编码规范可以改良软件的可读性，可以让程序员尽快而彻底地懂得新">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java规范 | Asia</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-base16-ateliersulphurpool.light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Asia</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/utils" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-book"></i>
+            
+            <span>工具</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/doc" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-wordpress"></i>
+            
+            <span>文档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>伙伴</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Asia</div>
+        <div class="logo-desc">
+            
+            不心累
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/utils" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-book"></i>
+                
+                工具
+            </a>
+        </li>
+        
+        <li>
+            <a href="/doc" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-wordpress"></i>
+                
+                文档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                伙伴
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/asiacuityz" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>关于
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/asiacuityz" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="关于" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java规范
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/规范/" target="_blank">
+                    <span class="chip bg-color">规范</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/Java规范/" class="post-category" target="_blank">
+                        Java规范
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-08
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="1-目的"><a href="#1-目的" class="headerlink" title="1 目的"></a>1 目的</h2><p>编码规范对于程序员而言尤为首要，有以下几个原因：</p>
+<blockquote>
+<ul>
+<li>一个软件的生命周期中，80％的花费在于维护。</li>
+<li>几乎没有任何一个软件，在其全部生命周期中，均由最初的开辟人员来维护。编码规范可以改良软件的可读性，可以让程序员尽快而彻底地懂得新的代码。</li>
+</ul>
+</blockquote>
+<p>最佳实践主要是包括编码习惯、禁忌等，能有效避免常见问题，提高代码质量。</p>
+<h2 id="2-适用范围"><a href="#2-适用范围" class="headerlink" title="2 适用范围"></a>2 适用范围</h2><p>本规范适用于Java开发人员。</p>
+<h2 id="3-术语"><a href="#3-术语" class="headerlink" title="3 术语"></a>3 术语</h2><p>强制：编程时强制必须遵守的原则。</p>
+<p>推荐：编程时必须加以考虑的习惯、写法等。参考：编程时无法用代码量化的原则或描述。说明：对此规范或建议进行必要的解释。</p>
+<p>正例、反例：对此规范或建议从正、反两个方面给出例子。</p>
+<h2 id="4-总体原则"><a href="#4-总体原则" class="headerlink" title="4 总体原则"></a>4 总体原则</h2><p>简单、易读、易实施执行</p>
+<h1 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h1><h2 id="1-基本原则"><a href="#1-基本原则" class="headerlink" title="1 基本原则"></a>1 基本原则</h2><p>命名力求做到<strong>统一、达意、简洁</strong>。</p>
+<ul>
+<li>统一</li>
+</ul>
+<blockquote>
+<p>统一即对于同一个概念，在程序中用同一种表示方法，比如对于供应商，既可以用supplier，也可以用provider，但是我们只能选定一个使用，至少在一个Java项目中保持统一。</p>
+<p>说明:如果对同一概念有不同的表示方法，会使代码混乱难以理解。即使不能取得好的名称，但是只要统一，阅读起来也不会太困难，因为阅读者只要理解一次。</p>
+</blockquote>
+<ul>
+<li>达意</li>
+</ul>
+<blockquote>
+<p>达意是指，标识符能准确的表达出它所代表的意义，比如：newSupplier,OrderPaymentGatewayService等；而supplier1,service2，idtts等则不是好的命名方式。</p>
+<p>说明:准确有两成含义，一是正确，二是丰富。如果给一个代表供应商的变量起名是order，显然没有正确表达。同样的，supplier1远没有targetSupplier意义丰富。</p>
+</blockquote>
+<ul>
+<li>简洁</li>
+</ul>
+<blockquote>
+<p>简 洁 是 指 ， 在 统 一 和 达 意 的 前 提 下 ， 用 尽 量 少 的 标 识 符 。 如 果 不 能 达 意 ， 宁 愿 不 要 简 洁 。 比 如 ： theOrderNameOfTheTargetSupplierWhichIsTransfered太长， transferedTargetSupplierOrderName则较好，但是transTgtSplOrdNm就不好了。注意：杜绝完全不规范的缩写,避免望文不知义。</p>
+<p>反例: AbstractClass”缩写”命名成AbsClass;condition”缩写”命名成condi,此类随意缩写严重降低了代码的可阅读性。</p>
+</blockquote>
+<h2 id="2-通用命名规范"><a href="#2-通用命名规范" class="headerlink" title="2 通用命名规范"></a>2 通用命名规范</h2><p>【强制】代码中所有命名必须以英文开头，名称只能由英文字母、数字、下划线、”-“符号组成。严禁使用拼音与英文混合的方式,更不允许直接使用中文的方式。如下表：</p>
+<p>说明:正确的英文拼写和语法可以让阅读者易于理解,避免歧义。注意,即使纯拼音命名方式也要尽量避免采用。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>规范</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>项目名</td>
+<td>工程名或模块名全部小写，多个英文单词以”- “连接。应用名与模块名，采用英文单词，不建议使用3个以上的单词，禁止使用特殊字符与数字</td>
+<td>lx-web-vaclient lx-dubbo-user</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>跟类名保持一致</td>
+<td>PayController.java</td>
+</tr>
+<tr>
+<td>包</td>
+<td>包名只允许使用小写字母和数字，并且单词之间点分隔符连接（不允许使用下划线）</td>
+<td>com.iflytek.cbg.lx. web.user.controller</td>
+</tr>
+<tr>
+<td>类 接口</td>
+<td>类名、接口名使用UpperCamelCase风格,必须遵从驼峰形式，类名如果有复数含义,可以使用复数形式。另类名通常使用名词或名词短语</td>
+<td>PayController UserService</td>
+</tr>
+<tr>
+<td>方 法 名 参 数 名 成员变量局部变量</td>
+<td>方法名、参数名、成员变量、局部变量都统一使用lowerCamelCase 风格,必须遵从驼峰形式。另方法名通常使用动词、动词短语、形容词 在单测方法中可以含有下划线，通常用来指定特定场景：test&lt;测试方法名&gt;_&lt;场景&gt;，比如：testPop_emptyStack。对于测试方法的命名没有强制性要求，也可以采用其他的命名方式</td>
+<td>getScore userId</td>
+</tr>
+<tr>
+<td>常量</td>
+<td>常量命名全部大写,单词间用下划线隔开,力求语义表达完整清楚,不要嫌名字长</td>
+<td>MAX_PAY_TIMEOUT</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-类命名"><a href="#3-类命名" class="headerlink" title="3 类命名"></a>3 类命名</h2><p>类名往往用不同的前缀或后缀表达额外的意思。如下表：</p>
+<table>
+<thead>
+<tr>
+<th>前缀/后缀</th>
+<th>意义</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>xxxController</td>
+<td>直接处理页面请求、管理页面逻辑类、Http请求处理类</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>xxxService</td>
+<td>表明这个类是个服务类，里面包含了给其他类提同业务服务的方法</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>xxxDao</td>
+<td>这个类封装了数据访问方法</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>xxxEntity<br>xxxDTO<br>xxxVO<br>xxxReq<br>xxxResp<br></td>
+<td>不同用处的POJO类，VO，DTO中不要出现@Entity注解数据传输对象：xxxDTO，xxx 为业务领域相关的名称展示对象：xxxVO，xxx 一般为网页名称</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>xxxEnum</td>
+<td>枚举类</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>Ixxx</td>
+<td>这个类是一个接口</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>xxxImpl</td>
+<td>这个类是一个实现类，而不是接口</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>Abstractxxx</td>
+<td>抽象类</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>xxxBase</td>
+<td>其他类的基类</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>xxxFactory<br>xxxProxy<br>xxxAdapter<br>xxxObserver</td>
+<td>如果使用到了设计模式,建议通过后缀在类名中体现出具体模式</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>xxxWrapper</td>
+<td>这是一个包装类，为了给某个类提供没有的能力</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>xxxListener<br>xxxEvent</td>
+<td>响应某种事件相关的类</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>xxxJob</td>
+<td>某种按时间运行的任务</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>xxxUtils</td>
+<td>工具类</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>xxxException</td>
+<td>异常类</td>
+<td>【强制】</td>
+</tr>
+<tr>
+<td>xxxTest</td>
+<td>测试类</td>
+<td>【强制】</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-方法命名"><a href="#4-方法命名" class="headerlink" title="4 方法命名"></a>4 方法命名</h2><p>方法名往往用不同的前缀表达特定的含义，如下表：</p>
+<table>
+<thead>
+<tr>
+<th>前缀/后缀</th>
+<th>意义</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getxxx()</td>
+<td>获取单个对象</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>listxxx()</td>
+<td>获取多个对象</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>countxxx()</td>
+<td>计数，获取统计值</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>savexxx()</td>
+<td>插入</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>removexxx()</td>
+<td>删除</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>updatexxx()</td>
+<td>更新</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>findxxx()<br>searchxxx()</td>
+<td>搜索、查询</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>doxxx()<br>executexxx()</td>
+<td>执行某个过程或者流程</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>initxxx()</td>
+<td>初始化</td>
+<td>【推荐】</td>
+</tr>
+<tr>
+<td>checkxxx()<br>validatexxx()</td>
+<td>校验合法性</td>
+<td>【推荐】</td>
+</tr>
+</tbody>
+</table>
+<h1 id="排版规范"><a href="#排版规范" class="headerlink" title="排版规范"></a>排版规范</h1><h2 id="1-源文件结构"><a href="#1-源文件结构" class="headerlink" title="1 源文件结构"></a>1 源文件结构</h2><p>1.【强制】所有源文件必须使用utf-8编码。</p>
+<p>2.【强制】所有未使用的import语句应该被删除。</p>
+<p>3.【强制】禁止使用通配符import。</p>
+<p>说明：Eclipse中可以通过快捷键将不需要的引入包去掉。快捷键：Ctrl + Shift + O。 IntelliJ IDEA自动导入包去除星号：</p>
+<p>打开File&gt; Settings&gt;Editor&gt;Code Style&gt;Java&gt;Scheme Default&gt;Imports </p>
+<ol>
+<li>将Class count to use import with “<em>“改为99（导入同一个包的类超过这个数值自动变为 </em> ） </li>
+<li>将Names count to use static import with “*”改为99（同上，但这是静态导入的） </li>
+<li>将Package to Use import with “<em>“删掉默认的这两个包（不管使用多少个类，只要在这个列表里都会变为 </em> ）</li>
+</ol>
+<p>自动删除没有用到的导入包：</p>
+<p>打开File&gt; Settings&gt;Editor&gt; General &gt; Auto Import</p>
+<p>勾上 <img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsED41.tmp.jpg" alt="img">                                               </p>
+<p>4.【推荐】同名的构造函数或方法之间禁止插入其他成员，例如重载的方法必须放在一起；不建议把新添加的方法一律放在最后，而是应该插入到合适的地方。</p>
+<p>说明:当一个类有多个构造方法,或者多个同名方法，或者类似方法,这些方法应该按顺序放置在一起,便于阅读。</p>
+<p>5.【推荐】类内定义顺序依次是:常量&gt;公共变量或保护变量&gt;私有变量&gt;构造方法&gt;静态公共方法&gt;静态私有方法&gt;公有方法或保护方法&gt;getter/setter方法&gt;main方法。</p>
+<p>引入lombok插件，IDEA中安装lombok插件使POJO类代码更加简洁，省去写getter/setter，构造函数的方法。具体参考：<a href="https://yq.aliyun.com/articles/59972" target="_blank" rel="noopener">https://yq.aliyun.com/articles/59972</a>, <a href="https://www.projectlombok.org/" target="_blank" rel="noopener">https://www.projectlombok.org/</a></p>
+<h2 id="2-代码格式"><a href="#2-代码格式" class="headerlink" title="2 代码格式"></a>2 代码格式</h2><p>【强制】代码格式规范主要是缩进、空格、换行、空行的运用。具体规范如下表：</p>
+<p>说明:合理的运用缩进、空格、换行、空行，对代码的结构、可读性有非常大影响；另外，可以直接使用IDE自带的格式化快捷键进行全局或局部代码格式化。</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>规范解释</th>
+<th>其他描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行长度</td>
+<td>单行字符数限制不超过120个,超出需要换行， 换行时遵循换行原则；</td>
+<td>设置IDE单行字符数配置</td>
+</tr>
+<tr>
+<td>缩进</td>
+<td>1. 缩进采用4个空格,禁止使用tab字符；<br>2. 方法体的开始、类的定义、以及if、 for、do、while、switch、case语句中的代码都要采用缩进方式；<br>3. 由于列宽限制需要缩进的情况遵循换行原则；</td>
+<td>设置IDE Tab键相关配置</td>
+</tr>
+<tr>
+<td>空格</td>
+<td>1. 左小括号和字符之间不出现空格;同样,右小括号和字符之间也不出现空格；2. if/for/while/switch/do等保留字与括号之间都必须加空格；<br>3. 任何二目、三目运算符的左右两边都需要加一个空格；一元操作符如”!”、” ~”、” ++”、” –”等前后不加空格；<br>4. 方法参数在定义和传入时,多个参数逗号后边必须加空格；5. 强制转型后必须跟一个空格;</td>
+<td>在if、else、for、do和while语句中，即使没有语句或者只有一行，也不得省略花括号。</td>
+</tr>
+<tr>
+<td>换行</td>
+<td>1、每行最多只能写一条语句，每条语句之后都要换行。 <br>2、单行字符数超过120个限制需换行： 第二行相对第一行缩进,从第三行开始,不再继续缩进；运算符与下文一起换行；方法调用的点符号与下文一起换行；在多个参数超长,在逗号后换行；在括号前不要换行；<br>3、大括号：如果是大括号内为空,则简洁地写成{}即可,不需要换行;如果是非空代码块则:左大括号前不换行；左大括号后换行； 右大括号前换行；右大括号后还有else等代码则不换行;表示终止的右大括号后必须换行；</td>
+<td></td>
+</tr>
+<tr>
+<td>空行</td>
+<td>空行可以表达代码在语义逻辑上的分割，注释的作用范围，等等。将类似操作，或一组操作放在一起不用空行隔开，而用空行隔开不同组的代码。例如： 1、在类的不同的成员间增加空行，包括：成员变量、构造函数、方法、内部类、静态初始化块、实例初始化块等； 2、方法体内，按需增加空行，以便从逻辑上对语句进行分组；执行语句组、变量的定义语句组、不同的业务逻辑之间或者不同的语义之间插入一个空行。相同业务逻辑和语义之间不需要插入空行； 3、注释与其上面的代码用空行隔开；</td>
+<td>说明:超过十行的代码如果还不用空行分割， 就会增加阅读困难。另外，没有必要插入多个空行进行隔开。</td>
+</tr>
+</tbody>
+</table>
+<p>正例:</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsED99.tmp.png" alt="img"> </p>
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><h2 id="1-基本原则-1"><a href="#1-基本原则-1" class="headerlink" title="1 基本原则"></a>1 基本原则</h2><ul>
+<li>注释力求精简准确、表达到位。</li>
+</ul>
+<blockquote>
+<ol>
+<li>能够准确反应设计思想和代码逻辑;</li>
+<li>能够描述业务含义,使别的程序员能够迅速了解到代码背后的信息。好的命名、代码结构是自解释的,往往不需要或者只需要很少注释，就可以让人读懂；相反，不能正确表达代码意义的注释，只会损害代码的可读性。</li>
+</ol>
+</blockquote>
+<ul>
+<li>注释宜少而精，不宜多而滥，更不能误导，过多的注释会成为后期维护的负担。</li>
+</ul>
+<blockquote>
+<p>防止过多过滥的注释，没必要的重复注释，或对显而易见的代码添加注释。</p>
+</blockquote>
+<ul>
+<li><p>代码混乱，再多的注释都不能弥补，所以，应当先在代码本身下功夫。</p>
+</li>
+<li><p>注释要和代码同步。代码修改的同时,注释也要进行相应的修改,尤其是参数、返回值、异常、核心逻辑等的修改。</p>
+</li>
+</ul>
+<blockquote>
+<p>说明:代码与注释更新不同步,就像路网与导航软件更新不同步一样,如果导航软件严重滞后,就失去了导航的意义。</p>
+</blockquote>
+<ul>
+<li>注释不是用来管理代码版本的，如果有代码不要了，直接删除，svn会有记录的，不要注释掉，否则以后没人知道那段注释掉的代码该不该删除。</li>
+</ul>
+<h2 id="2-Javadoc说明"><a href="#2-Javadoc说明" class="headerlink" title="2 Javadoc说明"></a>2 Javadoc说明</h2><p>Java程序有两类注释：实现注释和文档注释。</p>
+<p>实现注释是那些在C++中见过的，应用/…/和//界定的注释。文档注释是Java独有的（即Javadoc），由/*…/界定,文档注释可以经由Javadoc工具转换成HTML文件。 Javadoc注释是给类的使用者来看的，主要介绍是什么功能，什么含义，怎么用等信息。凡是类的使用者需要知道，都要用Javadoc来写。Javadoc注释只负责描述类(class)、接口(interface)、方法(method)、构造器(constructor)、成员字段(field)。相应地，文档注释必须写在类、接口、方法、构造器、成员字段前面，而写在其他位置，比如函数内部，是无效的文档注释。</p>
+<p>非Javadoc的注释往往是给代码的维护者看的，用以注释代码或者实现细节，着重告述读者功能以及逻辑，特殊或者复杂的逻辑可以注释说明为什么这样写，如何修改，注意什么问题等。 Javadoc说明可参考文档：<a href="http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html</a> <a href="http://blog.csdn.net/garfielder007/article/details/54959597" target="_blank" rel="noopener">http://blog.csdn.net/garfielder007/article/details/54959597</a></p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEDBF.tmp.png" alt="img">正例:</p>
+<h2 id="3-Javadoc规范"><a href="#3-Javadoc规范" class="headerlink" title="3 Javadoc规范"></a>3 Javadoc规范</h2><p>下面规范要求不包括符合”注释-基本原则”中代码能自解释的例外情况。</p>
+<ol>
+<li><p>【强制】所有的类都必须添加类功能描述、创建者和创建日期。</p>
+</li>
+<li><p>【推荐】类公共属性、类公共方法需要增加Javadoc注释,即使用/*内容/格式,不得使用//xxx方式。</p>
+</li>
+<li><p>【强制】所有对外暴露的服务(RPC..)中类、方法、输入参数、输出参数必须添加Javadoc注释。</p>
+</li>
+<li><p>【强制】项目组内通用类库或者开发的可复用的类库中对使用者暴露的类、方法、属性必须增加Javadoc注释。</p>
+</li>
+<li><p>【强制】所有抽象类和接口必须要用Javadoc注释；另外，子类中override的方法和接口的实现类对应的方法实现大部分情况下不需要添加注释。</p>
+</li>
+<li><p>【强制】对已经不推荐使用的类和方法需要注明@Deprecated，并说明替代的类或者方法。</p>
+</li>
+<li><p>【推荐】枚举类和常量类字段尽量要有注释, 说明每个字段的含义。说明：字段命名能自解释的除外。</p>
+</li>
+<li><p>【推荐】特殊注释标记,请注明标记人与标记时间。注意及时处理这些标记,通过标记扫描,经常清理此类标记。线上故障有时候就是来源于这些标记处的代码。</p>
+<pre class="line-numbers language-Java"><code class="language-Java">待办事宜(TODO):(标记人,标记时间,[预计处理时间])
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ol>
+<p>表示需要实现,但目前还未实现的功能。这实际上是一个 Javadoc 的标签,目前的 Javadoc还没有实现,但已经被广泛使用。只能应用于类,接口和方法(因为它是一个 Javadoc 标签)。</p>
+<pre class="line-numbers language-java"><code class="language-java">错误<span class="token punctuation">,</span>不能工作<span class="token punctuation">(</span>FIXME<span class="token punctuation">)</span><span class="token operator">:</span><span class="token punctuation">(</span>标记人<span class="token punctuation">,</span>标记时间<span class="token punctuation">,</span><span class="token punctuation">[</span>预计处理时间<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在注释中用 FIXME 标记某代码是错误的,而且不能工作,需要及时纠正的情况。</p>
+<p>9.【强制】注释的双斜线与注释内容之间有且仅有一个空格。 正例：// 注释内容，注意在<code>//</code>和<code>注释内容</code>之间有一个空格。</p>
+<h1 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h1><h2 id="1-声明、赋值等语句"><a href="#1-声明、赋值等语句" class="headerlink" title="1 声明、赋值等语句"></a>1 声明、赋值等语句</h2><ol>
+<li>【强制】一行只声明一个变量，不允许一行声明多个变量；在需要时声明变量，声明后尽快初始化，即初始化和被使用尽量放在一起。</li>
+<li>【强制】不允许把多个短语句写在一行中，即一行只写一条语句。</li>
+<li>【强制】避免在一个语句中执行多种操作，例如：给多个变量赋雷同的值，或赋值运算符与相等关系运算符混合使用，它很难读懂。</li>
+</ol>
+<p><span style="color: #ff0000">反例:</span> </p>
+<pre class="line-numbers language-c"><code class="language-c">fooBar<span class="token punctuation">.</span>fChar <span class="token operator">=</span> barFoo<span class="token punctuation">.</span>lchar <span class="token operator">=</span> <span class="token string">"c"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> （c<span class="token operator">++</span> <span class="token operator">=</span> d<span class="token operator">++</span>） <span class="token punctuation">{</span>
+
+<span class="token comment" spellcheck="true">//TODO</span>
+
+<span class="token punctuation">}</span>
+
+d <span class="token operator">=</span> （a <span class="token operator">=</span> b <span class="token operator">+</span> c） <span class="token operator">+</span> r<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>【强制】所有的相同类型的包装类对象之间值的比较,全部使用equals方法比较。另外equals方法容易抛空指针异常,应使用常量或确定有值的对象来调用equals。 说明:对于Integer var = ?在-128至127范围内的赋值,Integer对象是在IntegerCache.cache产生,会复用已有对象,这个区间内的Integer值可以直接使用==进行判断,但是这个区间之外的所有数据,都会在堆上产生,并不会复用已有对象,这是一个大坑。 正例: “test”.equals(object); 反例: object.equals(“test”); </li>
+<li>【强制】定义 DO/DTO/VO 等 POJO 类时，不要设定任何属性默认值。 反例：POJO 类的 gmtCreate 默认值为 new Date();但是这个属性在数据提取时并没有置入具体值，在更新其它字段时又附带更新了此字段，导致创建时间被修改成当前时间。 </li>
+<li>【强制】序列化类新增属性时，请不要修改 serialVersionUID 字段，避免反序列失败；如果完全不兼容升级，避免反序列化混乱，那么请修改 serialVersionUID 值。 说明：注意 serialVersionUID 不一致会抛出序列化运行时异常。 </li>
+<li>【强制】构造方法里面禁止加入任何业务逻辑，如果有初始化逻辑，请放在 init 方法中。</li>
+<li>【推荐】当一个类有多个构造方法，或者多个同名方法，这些方法应该按顺序放置在一起， 便于阅读。 </li>
+<li>【推荐】 类内方法定义顺序依次是：公有方法或保护方法 &gt; 私有方法 &gt; getter/setter 方法。 说明：公有方法是类的调用者和维护者最关心的方法，首屏展示最好；保护方法虽然只是子类关心，也可能是”模板设计模式”下的核心方法；而私有方法外部一般不需要特别关心，是一个 黑盒实现；因为承载的信息价值较低，所有Service 和 DAO 的 getter/setter 方法放在类体最后。</li>
+</ol>
+<h2 id="2-控制语句、程序结构"><a href="#2-控制语句、程序结构" class="headerlink" title="2 控制语句、程序结构"></a>2 控制语句、程序结构</h2><ol>
+<li>【强制】在一个switch块内,每个case要么通过break/return等来终止,要么注释说明程序将继续执行到哪一个case为止;在一个switch块内,都必须包含一个default语句并且放在最后,即使它什么代码也没有。</li>
+<li>【强制】在if/else/for/while/do语句中必须使用大括号，即使只有一行代码,避免使用单行的形式:if (condition) statements。</li>
+<li>【强制】不要在if语句中使用等号=进行赋值操作。</li>
+<li>【强制】不要在条件判断中执行其它复杂的语句,将复杂逻辑判断的结果赋值给一个有意义的布尔变量名,提高可读性。</li>
+</ol>
+<blockquote>
+<p>说明:很多if语句内的逻辑相当复杂,阅读者需要分析条件表达式的最终结果,才能明确什么样的条件执行什么样的语句,那么,如果阅读者分析逻辑表达式错误呢?</p>
+</blockquote>
+<p>正例:<br><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEDE2.tmp.png" alt="img"> </p>
+<p>反例:</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>fileName<span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>5.【推荐】代码嵌套层次不要超过3层。<br>说明:代码嵌套层次达3层以上时，一般人理解起来都会困难。减少嵌套的方法有很多：合并条件、利用return以省略后面的else、利用子方法(将嵌套的程序提取出来放到另外的方法里)等。</p>
+<p>6.【推荐】类超过2000行的程序难以阅读，应该尽量避免出现超过2000行的程序；</p>
+<p>7.【推荐】注意运算符的优先级，避免使用默认优先级。一般而言，在含有多种运算符的表达式中应用圆括号来明确表达式的操作顺序，是个好办法。</p>
+<blockquote>
+<p>说明：防止阅读程序时产生误解，防止因默认的优先级与设计思想不符而导致程序出错。</p>
+</blockquote>
+<p>8.【推荐】可以通过return语句减少嵌套层次: if (condition) {</p>
+<p>… return obj;</p>
+<p>}</p>
+<p>// 接着写 else 的业务逻辑代码;</p>
+<h2 id="3-常量"><a href="#3-常量" class="headerlink" title="3 常量"></a>3 常量</h2><p>1.【推荐】魔法值(未经定义的常量)尽量不要直接出现在代码中，代之以有名字的static final静态常量或者enum值。</p>
+<p>说明：魔法值使代码的可读性大大下降，而且，如果同样的数值多次出现时，到底这些数值是不是带有同样的含义呢，谁也说不清楚。另一方面， 如果本来应该使用相同数值的地方，一旦用错了，也很难发现，修改维护也不方便。因此，需要注意以下几点，极力避免使用魔法数值。</p>
+<p>反例:</p>
+<p>String key = “Id#taobao_” + tradeId; cache.put(key, value);</p>
+<p>2.【推荐】不要使用一个常量类维护所有常量,应该按常量功能进行归类分开维护。如:缓存相关的常量放在类:CacheConsts下;系统配置相关的常量放在类:ConfigConsts 下。</p>
+<p>说明:大而全的常量类,非得使用查找功能才能定位到修改的常量,不利于理解和维护。</p>
+<p>3.【推荐】常量的复用层次有五层:跨应用共享常量、应用内共享常量、子工程内共享常量、包内共享常量、类内共享常量。</p>
+<p>4.【推荐】如果变量值仅在一个范围内变化,且带有名称之外的延伸属性,定义为枚举类。下面正例中的数字就是延伸信息,表示星期几。正例:</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> WeekEnum<span class="token punctuation">{</span>
+
+<span class="token function">MONDAY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">TUESDAY</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">WEDNESDAY</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">THURSDAY</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">FRIDAY</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">SATURDAY</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">SUNDAY</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>5.【推荐】避免使用不易理解的数字，用有意义的标识来替代。涉及物理状态或者含有物理意义的常量，不应直接使用数字，用有意义的静态变量来代替更好。</p>
+<p>反例：如下的程序可读性差。 </p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span>state <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+state <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// program code</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>正例:</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">int</span> TRUNK_IDLE <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">int</span> TRUNK_BUSY <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">int</span> TRUNK_UNKNOWN <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>state <span class="token operator">==</span> TRUNK_IDLE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+state <span class="token operator">=</span> TRUNK_BUSY<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// program code</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="4-并发、线程、性能"><a href="#4-并发、线程、性能" class="headerlink" title="4 并发、线程、性能"></a>4 并发、线程、性能</h2><ol>
+<li>【强制】获取单例对象需要保证线程安全，其中的方法也要保证线程安全。说明：资源驱动类、工具类、单例工厂类都需要注意。</li>
+<li>【强制】创建线程或线程池时请指定有意义的线程名称，方便出错时回溯。正例：</li>
+</ol>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TimerTaskThread</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span> <span class="token punctuation">{</span> 
+<span class="token keyword">public</span> <span class="token function">TimerTaskThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"TimerTaskThread"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li><p>【强制】线程资源必须通过线程池提供，不允许在应用中自行显式创建线程。 说明：使用线程池的好处是减少在创建和销毁线程上所花的时间以及系统资源的开销，解决资 源不足的问题。如果不使用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者 “过度切换”的问题。</p>
+</li>
+<li><p>【强制】线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式，这样 的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。</p>
+</li>
+</ol>
+<p>说明：Executors 返回的线程池对象的弊端如下：</p>
+<blockquote>
+<p>FixedThreadPool 和 SingleThreadPool:</p>
+</blockquote>
+<p>允许的请求队列长度为Integer.MAX_VALUE，可能会堆积大量的请求，从而导致 OOM。</p>
+<blockquote>
+<p>CachedThreadPool 和 ScheduledThreadPool:</p>
+</blockquote>
+<p>允许的创建线程数量为Integer.MAX_VALUE，可能会创建大量的线程，从而导致OOM。</p>
+<ol start="5">
+<li>【强制】SimpleDateFormat是线程不安全的类,一般不要定义为static变量,如果定义为static,必须加锁,或者使用JodaTime。</li>
+<li>【强制】在使用正则表达式时,利用好其预编译功能,可以有效加快正则匹配速度。说明:不要在方法体内定义:Pattern pattern = Pattern.compile(规则);</li>
+<li>【推荐】避免Random实例被多线程使用,虽然共享该实例是线程安全的,但会因竞争同一seed导致的性能下降。说明:Random实例包括java.util.Random的实例或者Math.random()的方式。</li>
+<li>【推荐】注意Math.random()这个方法返回是double类型,注意取值的范围0≤x&lt;1(能够 取到零值,注意除零异常),如果想获取整数类型的随机数, 不要将x放大10的若干倍然后取整,直接使用Random对象的nextInt或者nextLong法。</li>
+<li>【强制】并发修改同一记录时，避免更新丢失，需要加锁。要么在应用层加锁，要么在缓存加 锁，要么在数据库层使用乐观锁，使用 version 作为更新依据。</li>
+</ol>
+<blockquote>
+<p>说明:如果每次访问冲突概率小于20%，推荐使用乐观锁，否则使用悲观锁。乐观锁的重试次 数不得小于3次。 </p>
+</blockquote>
+<p>10.【强制】多线程并行处理定时任务时，Timer 运行多个 TimeTask 时，只要其中之一没有捕获 抛出的异常，其它任务便会自动终止运行，使用ScheduledExecutorService 则没有这个问题。</p>
+<p>11.【推荐】循环体中的语句要考量性能,循环体是最容易发生性能问题的地方。以下操作尽量移至循环体外处理,如定义对象、变量、获取数据库连接,进行不必要的try-catch 操作(这个try-catch是否可以移至循环体外)。</p>
+<p>12.【强制】循环体内字符串的连接方式,使用StringBuilder的append方法进行扩展。</p>
+<p>说明:反编译出的字节码文件显示每次循环都会new出一个StringBuilder对象,然后进行append操作,最后通过toString方法返回String对象,造成内存资源浪费。</p>
+<p>反例:</p>
+<pre class="line-numbers language-java"><code class="language-java">String str <span class="token operator">=</span> <span class="token string">"start"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+  str <span class="token operator">=</span> str <span class="token operator">+</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>13.【推荐】任何数据结构的构造或初始化,都应指定大小,避免数据结构无限增长吃光内存。</p>
+<p>14.【推荐】<a href="http://www.cnblogs.com/DreamDrive/p/5422175.html" target="_blank" rel="noopener">在明确的场景下,为集合指定初始容量</a>。</p>
+<p>说明:集合有默认大小，首先每次新增时都会判断是否达到临界点，且当长度不足时动态扩展严重影响性能。</p>
+<p>15.【强制】使用entrySet遍历Map类集合KV,而不是keySet方式进行遍历。</p>
+<p>说明:keySet其实是遍历了2次,一次是转为Iterator对象,另一次是从hashMap中取出key所对应的value。而entrySet只是遍历了一次就把key和value 都放到了 entry中,效率更高。</p>
+<p>\16. 【推荐】高度注意 Map 类集合 K/V 能不能存储 null 值的情况，如下表格：</p>
+<table>
+<thead>
+<tr>
+<th>集合类</th>
+<th>Key</th>
+<th>Value</th>
+<th>Super</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hashtable</td>
+<td>不允许为null</td>
+<td>不允许为null</td>
+<td>Dictionary</td>
+<td>线程安全</td>
+</tr>
+<tr>
+<td>ConcurrentHashMap</td>
+<td>不允许为 null</td>
+<td>不允许为 nul</td>
+<td>AbstractMap</td>
+<td>锁分段技术</td>
+</tr>
+<tr>
+<td>TreeMap</td>
+<td>不允许为 nul</td>
+<td>允许为 null</td>
+<td>AbstractMap</td>
+<td>线程不安全</td>
+</tr>
+<tr>
+<td>HashMap</td>
+<td>允许为 null</td>
+<td>允许为 null</td>
+<td>AbstractMap</td>
+<td>线程不安全</td>
+</tr>
+</tbody>
+</table>
+<p>反例： 由于 HashMap 的干扰，很多人认为 ConcurrentHashMap 是可以置入 null 值，而事实上， 存储 null 值时会抛出 NPE 异常。</p>
+<h2 id="5-日志"><a href="#5-日志" class="headerlink" title="5 日志"></a>5 日志</h2><p>1.【强制】不允许使用System.out.print，也不可直接使用日志系统(Log4j、Logback)中的API,而应依赖使用日志框架SLF4J中的API,使用门面模式的日志框架,有利于维护和各个类的日志处理方式统一和更换日志系统。</p>
+<p>说明：日志框架可以设定级别，可以控制输出到哪里，容易区分是在代码的什么地方打印的，而System.out.print则不行。而且System.out.print的速度很慢。所以，除非是有意的，否则都要用日志框架。至少在提交到版本库之前把System.out.print换成日志框架。</p>
+<p>正例：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>LoggerFactory<span class="token punctuation">;</span> <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo</span> <span class="token punctuation">{</span>
+
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Logger logger <span class="token operator">=</span> LoggerFactory<span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span>Abc<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2.【强制】避免重复打印日志,浪费磁盘空间,务必在log4j.xml或logback.xml中设置 additivity=false。正例:</p>
+<logger name="com.iflytek.lx.config" additivity="false">
+
+<p>3.【强制】生产环境禁止输出debug、trace和其他调试日志；相应的，生产环境一定要记录下错误日志和异常异常，利于现网故障或用户投诉时排查问题。</p>
+<p>说明：谨慎地根据需要配置日志级别。例如测试环境可以打开info日志，性能测试需要关闭debug和其他调试日志，保持与生存环境一致。日志的级别由高到低分别为：ERROR &gt;&gt; WARN &gt;&gt; INFO &gt;&gt; DEBUG &gt;&gt; TRACE。</p>
+<ul>
+<li>Error：用于记录影响系统正常运行的一切信息，包括：Throwable、Error、Exception、与其他系统通讯错误，例如：SQL执行异常、其他系统返回的错误信息；</li>
+</ul>
+<ul>
+<li>Warn：用于记录不影响系统正常运行，但需要注意需要及时解决，例如：某个信息；                                        Info：通常生产环境的最低级别，用于记录这种重要的提示信息，例如：各种通讯信息，关键的提示信息，以及这种需要在生产环境下提示的信息；</li>
+<li>Debug： 记录一些详细的数据，比如我们想知道一个方法的多个入参值，那么在生产环境中，一般不会打印出来，在开发阶段和调试阶段，建议使用debug进行记录查看。在生产环境中将不会出现此类信息（当然可能在某些特定情况下，通过特殊手段某一时间段打开用于生产环境调试）。</li>
+<li>Trace：用于代替System.out.println()和System.err.println()，供开发阶段调试用。</li>
+</ul>
+<p>4.【推荐】在生产环境中配置日志框架自动加载刷新，即不重启应用就可以调整日志的配置。例如在logback.xml的配置中开源加上：</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span> <span class="token attr-name">scan</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token attr-name">scanPeriod</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>60 seconds<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="6-异常"><a href="#6-异常" class="headerlink" title="6 异常"></a>6 异常</h2><p>1.【强制】不允许使用printStackTrace打印异常日志。</p>
+<p>2.【强制】记录异常日志时不要只保存exception.getMessage()，记录整个异常堆栈信息。</p>
+<p>3.【强制】捕获异常是为了处理它,不要捕获了却什么都不处理而抛弃之,如果不想处理它,请将该异常抛给它的调用者。另外自己抛出的异常必须要填写详细的描述信息，且必须保留原来的异常，便于问题定位，例如：throw new IOException(“Writing data error! Data: “ + data. toString(), e)。</p>
+<p>4.【强制】不能在finally块中使用return,finally块中的return返回后方法结束执行,不会再执行try块中的return语句。</p>
+<p>5.【强制】finally块必须对资源对象、流对象进行关闭，例如数据库操作、IO操作,且有异常也要进行try-catch，因为finally块中如果发生异常, 不会再执行try块中的return语句。</p>
+<p>6.【推荐】防止NullPointerException,IndexOutOfBoundsException是程序员的基本修养,代码中可以通过预先检查进行规避,而不应该通过catch来处理。</p>
+<p>正例:</p>
+<p>if (obj != null) {</p>
+<p>…</p>
+<p>}</p>
+<p>反例: try {</p>
+<p>obj.method();</p>
+<p>} catch (NullPointerException e) {</p>
+<p>…</p>
+<p>}</p>
+<h2 id="7-其他"><a href="#7-其他" class="headerlink" title="7 其他"></a>7 其他</h2><p>1.【强制】关于hashCode和equals的处理,遵循如下规则:</p>
+<p>** 只要重写equals,就必须重写 hashCode。</p>
+<p>** 因为Set存储的是不重复的对象,依据hashCode和equals进行判断,所以Set存储的对象必须重写这两个方法。</p>
+<p>** 如果自定义对象做为Map的键,那么必须重写hashCode和equals。</p>
+<p>说明:String重写了hashCode和equals方法,所以我们可以非常愉快地使用String 对象作为key来使用。2.【强制】所有的覆写方法,必须加@Override注解。</p>
+<p>3.【强制】不能使用过时的类或方法。       4.【推荐】慎用Object的clone方法来拷贝对象。</p>
+<p>说明:对象的clone方法默认是浅拷贝,若想实现深拷贝需要重写clone方法实现属性对象的拷贝。                                       5.【推荐】POJO类重写toString方法。使用 IDE 的中工具：source&gt; generate toString 时，如果继承了另一个 POJO 类，注意在前面加一下super.toString。</p>
+<p>说明：在方法执行抛出异常时，可以直接调用 POJO 的 toString()方法打印其属性值，便于排查问题。或者使用lombok插件，自动生成toString()方法。使用lomok可以防止在getter/setter加入业务逻辑。</p>
+<p>6.【强制】不要在foreach循环里进行集合元素的remove/add操作。remove 元素请使用 Iterator 方式，如果并发操作，需要对 Iterator 对象加锁。</p>
+<p>7.【推荐】使用索引访问用String的split方法得到的数组时,做边界检查,否则会有抛IndexOutOfBoundsException的风险。</p>
+<p>8.【强制】禁止在代码中显示调用System.gc()。</p>
+<p>9.【强制】避免通过一个类的对象引用访问此类的静态变量或静态方法,无谓增加编译器解析成本,直接用类名来访问即可。正例：</p>
+<p>Foo.aStaticMethod(); // good反例：</p>
+<p>Foo aFoo = …; aFoo.aStaticMethod();</p>
+<p>somethingThatYieldsAFoo().aStaticMethod();</p>
+<p>10.【推荐】类成员与方法访问控制从严，不是必须使用public属性的，请使用protected，不是必须使用protected,请使用private。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE18.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE28.tmp.png" alt="img">如果不允许外部直接通过new来创建对象,那么构造方法必须是private。</p>
+<p>** 工具类不允许有public或default构造方法。</p>
+<p>** 类非static成员变量并且与子类共享,必须是protected。</p>
+<p>** 类非static成员变量并且仅在本类使用,必须是private。</p>
+<p>** 类static成员变量如果仅在本类使用,必须是private。</p>
+<p>** 若是 static 成员变量,必须考虑是否为final。</p>
+<p>** 类成员方法只供类内部调用,必须是private。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE29.tmp.png" alt="img">类成员方法只对继承类公开,那么限制为protected。</p>
+<p>说明:良好的程序设计应该尽可能减小类与类之间耦合，所遵循的经验法则是：尽量限制成员函数的可见性。</p>
+<p>11.【强制】在一个项目组内开发环境、测试环境、生产环境使用统一版本的JDK。</p>
+<p>说明:不同版本的JDK编译出来的class不一样，可能存在冲突，不同版本的JDK也会带来莫名奇妙的问题且很难定位，所以一开始就要求必须统一。</p>
+<p>12.【推荐】避免出现重复的代码(Don’t Repeat Yourself),即DRY原则。</p>
+<p>说明:随意复制和粘贴代码,必然会导致代码的重复,在以后需要修改时,需要修改所有的副本,容易遗漏。必要时抽取共性方法,或者抽象公共类,甚至是共用模块。</p>
+<p>13.【推荐】在代码中使用”抛异常”还是”返回错误码”,对于公司外的 http/api 开放接口必须使用”错误码”;而应用内部推荐异常抛出;跨应用间RPC 调用优先考虑使用Result方式,封装isSuccess()方法、”错误码”、”错误简短信息”。</p>
+<p>说明:关于RPC方法返回方式使用Result方式的理由:</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE3A.tmp.png" alt="img">使用抛异常返回方式,调用方如果没有捕获到就会产生运行时错误。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE3B.tmp.png" alt="img">如果不加栈信息,只是new自定义异常,加入自己的理解的error message,对于调用端解决问题的帮助不会太多。如果加了栈信息,在频繁调用出错的情况下,数据序列化和传输的性能损耗也是问题。</p>
+<p>14.【推荐】logback比log4j性能要好很多，但是logback和log4j互斥，只能使用其中之一。因此，使用logback需要排除掉log4j依赖所有相关jar 包依赖，且为了兼容一些二方库、三方库（可能使用了log4j），需要引入引入log4j-over-slf4j.jar; 15.【推荐】对于”明确停止使用的代码和配置”,如方法、变量、类、配置文件、动态配置属性等要坚决从程序中清理出去,避免造成过多垃圾。</p>
+<h1 id="系统工程"><a href="#系统工程" class="headerlink" title="系统工程"></a>系统工程</h1><h2 id="1-工程化"><a href="#1-工程化" class="headerlink" title="1 工程化"></a>1 工程化</h2><p>1.【推荐】针对业务形态，工程分为以下几种情况：</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE3C.tmp.png" alt="img">Web工程</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE4D.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE4E.tmp.png" alt="img">web-应用名，以”web-“前缀开头。Dubbo工程</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE4F.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE5F.tmp.png" alt="img">service-应用名，以”service-“前缀开头。Interface工程</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE60.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE71.tmp.png" alt="img">interface-应用名，以”interface-“前缀开头。工具或者任务</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE72.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE73.tmp.png" alt="img">tool-应用名，以”tool-“前缀开头，或以”job-“前缀开头。Java公共Jar包</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE84.tmp.png" alt="img">common-模块名，以”common-“前缀开头。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE85.tmp.jpg" alt="img">2.【推荐】J2SE项目工程结构</p>
+<p>说明：J2SE项目有两种情况：</p>
+<p>一个是小工具，可以独立运行，处理一些简单的业务，打包为zip包。</p>
+<p>另一个是公共开发包，打包为jar包。以API方式提供给其它应用程序，以专业专注的精神进行分包，例如：通信协议包，常用工具包，加密解密包等等。公共开发包可能无法独立运行，所有的服务API都需要进行单元测试，并要保证线程安全。</p>
+<h2 id="2-包管理、版本管理"><a href="#2-包管理、版本管理" class="headerlink" title="2 包管理、版本管理"></a>2 包管理、版本管理</h2><p>1.【推荐】Maven定义GAV遵从以下规则:</p>
+<p>* GroupID格式:com.{公司}.{部门}.业务线.[子业务线],最多4级。</p>
+<p>* 正例:com.iflytek.cbg.lx 或 com.iflytek.cgb.kuyin</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE86.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE96.tmp.png" alt="img">ArtifactID格式:产品线名-模块名。语义不重复不遗漏,先到中央仓库去查证一下。正例:lx-web-user/lx-dubbo-user/lx-common</p>
+<p>* Version:详细规定参考下方。</p>
+<p>2.【推荐】二方库版本号命名方式:主版本号.次版本号.修订号</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE97.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEE98.tmp.png" alt="img">主版本号:当做了不兼容的API修改,或者增加了能改变产品方向的新功能。次版本号:当做了向下兼容的功能性新增(新增类、接口等)。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEA9.tmp.png" alt="img">修订号:修复bug,没有修改方法签名的功能加强,保持API兼容性。</p>
+<p>说明:正式发布的类库必须先去中央仓库进行查证,使版本号有延续性,正式版本号不允许覆盖升级。如当前版本:1.3.3,那么下一个合理的版本号: 1.3.4或1.4.0或2.0.0</p>
+<p>3.【推荐】线上应用不要依赖SNAPSHOT版本(安全包除外)。</p>
+<p>说明:不依赖SNAPSHOT版本是保证应用发布的幂等性。另外,也可以加快编译时的打包构建。</p>
+<p>4.【推荐】上传代码至svn时，项目相关的配置文件（.settings、.classpath、.project）不要上传本地调试文件，仅上传src文件夹、pom.xml或bin文件夹。</p>
+<p>5.【推荐】Maven工程需要在POM配置仓库地址，避免在本地maven setting中配置，其他组员check out后无法下载或者需要从远程仓库下载；</p>
+<h2 id="3-安全性"><a href="#3-安全性" class="headerlink" title="3 安全性"></a>3 安全性</h2><p>【备注】公司已经有大量项目被恶意攻击历史，所以研发必须提高安全意识和相关技术、方法、手段。</p>
+<p>1.【强制】对外提供的Http Api，必须进行签名、加密。</p>
+<p>2.【强制】用户敏感数据禁止直接展示,必须对展示数据进行脱敏。接口对敏感数据也必须加密，例如：用户密码。显示成<em>**</em></p>
+<p>3.【强制】隶属于用户个人的页面或者功能必须进行权限控制校验。</p>
+<p>说明：防止没有做水平权限校验就可随意访问、修改、删除别人的数据，比如查看他人的私信内容、修改他人的订单。</p>
+<p>3.【参考】用户请求传入的任何参数必须做有效性验证。说明:忽略参数校验可能导致:</p>
+<p>page size过大导致内存溢出</p>
+<p>恶意order by导致数据库慢查询任意重定向</p>
+<p>SQL注入</p>
+<p>4.【参考】表单、AJAX请求必须执行CSRF安全过滤。</p>
+<p>说明:CSRF(Cross-site request forgery)跨站请求伪造是一类常见编程漏洞。对于存在CSRF漏洞的应用/网站,攻击者可以事先构造好 URL,只要受害者用户一访问,后台便在用户不知情情况下对数据库中用户参数进行相应修改。</p>
+<p>5.【参考】在使用平台资源,譬如短信、邮件、电话、下单、支付,必须实现正确的防重放限制,如数量限制、疲劳度控制、验证码校验,避免被滥刷、资损。</p>
+<p>说明:如注册时发送验证码到手机,如果没有限制次数和频率,那么可以利用此功能骚扰到其它用户,并造成短信平台资源浪费。</p>
+<p>6.【参考】活动类需求，尤其是中奖类活动，必须实现防刷策略。</p>
+<h2 id="4-系统、服务器"><a href="#4-系统、服务器" class="headerlink" title="4 系统、服务器"></a>4 系统、服务器</h2><p>1.【推荐】高并发服务器建议调小TCP协议的time_wait超时时间。</p>
+<p>说明:操作系统默认240秒后,才会关闭处于time_wait状态的连接,在高并发访问下,服务器端会因为处于time_wait的连接数太多,可能无法建立新的连接,所以需要在服务器上调小此等待值。</p>
+<p>正例:在 linux服务器上请通过变更/etc/sysctl.conf文件去修改该缺省值(秒): net.ipv4.tcp_fin_timeout = 30</p>
+<p>2.【推荐】调大服务器所支持的最大文件句柄数(File Descriptor,简写为fd)。</p>
+<p>说明:主流操作系统的设计是将TCP/UDP连接采用与文件一样的方式去管理,即一个连接对应于一个fd。主流的linux服务器默认所支持最大fd数量为1024,当并发连接数很大时很容易因为fd不足而出现”open too many files”错误,导致新的连接无法建立。建议将linux服务器所支持的最大句柄数调高数倍(与服务器的内存数量相关)。</p>
+<p>3.【推荐】给JVM设置-XX:+HeapDumpOnOutOfMemoryError 参数,让JVM碰到OOM场景时输出dump信息。</p>
+<p>说明:OOM的发生是有概率的,甚至有规律地相隔数月才出现一例,出现时的现场信息对查错 非常有价值。</p>
+<p>4.【推荐】当生产环境组件异常、无响应、假死时，务必使用jstack dump线程堆栈，使用jstat –gcutil查看下gc信息，方便后期定位、分析问题。</p>
+<h1 id="七、MySql数据库"><a href="#七、MySql数据库" class="headerlink" title="七、MySql数据库"></a>七、MySql数据库</h1><h2 id="1-建表"><a href="#1-建表" class="headerlink" title="1 建表"></a>1 建表</h2><p>1.【推荐】使用InnoDB存储引擎、UTF-8(utf8mb4)字符集。</p>
+<p>2.【强制】表要有主键。</p>
+<p>3.【推荐】若业务上非实时一致性要求，禁止使用外键，由程序保证最终一致性。说明:外键会导致表与表之间耦合，影响sql性能，高并发下有可能会导致死锁。</p>
+<p>4.【推荐】表名、字段名必须使用小写字母或数字,禁止出现数字开头,禁止两个下划线中间只出现数字。数据库字段名的修改代价很大,因为无法进行预发布,所以字段名称需要慎重考虑。</p>
+<p>正例:getter_admin,task_config,level3_name反例:GetterAdmin,taskConfig,level_3_name</p>
+<p>5.【推荐】表名最好不使用复数名词。</p>
+<p>说明:表名应该仅仅表示表里面的实体内容,不应该表示实体数量。6.【推荐】表的命名最好是加上”模块名称_表名”。</p>
+<p>正例:score_rule / score_user /score_log</p>
+<p>7.【强制】千万不要使用mysql中关键字命名，例如：desc, order等；</p>
+<p>8.【推荐】如果修改字段含义或对字段表示的状态追加时,需要及时更新字段注释。</p>
+<p>9.【强制】主键索引名为pk_字段名;唯一索引名为uk_字段名;普通索引名则为idx_字段名。说明:pk_即 primary key;uk_即unique key;idx_即index的简称。</p>
+<p>10.【强制】所有字段定义为Not Null。说明：</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEAA.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEBA.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEBB.tmp.png" alt="img"><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEBC.tmp.png" alt="img">null列影响索引。                     MySql内部需要对null进行特殊处理,会影响性能null需要更多的存储空间 null查询必须使用is 或is not,不能使用=、in等</p>
+<p>11.【强制】禁止使用ENUM类型。</p>
+<p>说明：增加新的枚举值时，需要DDL操作。</p>
+<p>12.【推荐】小数类型为decimal,禁止使用float和double。</p>
+<p>说明:float和double在存储的时候,存在精度损失的问题,很可能在值的比较时,得到不 正确的结果。如果存储的数据范围超过decimal的范围,建议将数据拆成整数和小数分开存储。</p>
+<p>13.【推荐】如果存储的字符串长度几乎相等,使用char定长字符串类型。                                                         varchar是可变长字符串,不预先分配存储空间,长度不要超过5000,如果存储长度大于此值,定义字段类型为text,独立出来一张表,用主键来对应,避免影响其它字段索引效率。</p>
+<p>14.【推荐】字段允许适当冗余,以提高查询性能,但必须考虑数据一致。冗余字段应遵循:</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEECD.tmp.png" alt="img">不是频繁修改的字段。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEECE.tmp.png" alt="img">不是varchar超长字段,更不能是text字段。</p>
+<p>正例:商品类目名称使用频率高,字段长度短,名称基本一成不变,可在相关联的表中冗余存储类目名称,避免关联查询。</p>
+<p>15.【参考】合适的字符存储长度,不但节约数据库表空间、节约索引存储,更重要的是提升检索速度。</p>
+<h2 id="2-索引"><a href="#2-索引" class="headerlink" title="2 索引"></a>2 索引</h2><p>说明：务必用explain确认SQL语句是否走了索引。</p>
+<p>1.【参考】创建索引时避免有如下极端误解:</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEECF.tmp.png" alt="img">宁滥勿缺。误认为一个查询就需要建一个索引。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEE0.tmp.png" alt="img">宁缺勿滥。误认为索引会消耗空间、严重拖慢更新和新增速度。</p>
+<p><img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEE1.tmp.png" alt="img">抵制惟一索引。误认为业务的惟一性一律需要在应用层通过”先查后插”方式解决。</p>
+<p>2.【强制】业务上具有唯一特性的字段,即使是多个字段的组合,也必须建成唯一索引。</p>
+<p>说明:不要以为唯一索引影响了insert速度,这个速度损耗可以忽略,但提高查找速度是明显的;另外,即使在应用层做了非常完善的校验控制,只要没有唯一索引,根据墨菲定律,必然有脏数据产生。</p>
+<p>3.【参考】建立组合索引，必须根据业务上的查询需求使用合理顺序。</p>
+<p>说明:联合索引左前缀原则：(a,b,c)只有查询条件为a|(a,b)|(a,b,c)才会走该组合索引，但跟条件顺序无关，例如：ba、bac、bca、cab都会走索引，而bc、ac不会走索引。</p>
+<p>4.【参考】负向查询(!=、not in、not exists)、前导模糊查询(like <img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEE2.tmp.jpg" alt="img">xxx’)、在查询条件属性上进行函数计算、字段类型需强制转换都不会走索引。</p>
+<p>反例：</p>
+<p>select <em> from score where status!=2 select </em> from score where name like <img src="file:///C:\Users\Admin\AppData\Local\Temp\ksohtml\wpsEEF2.tmp.jpg" alt="img">XX’</p>
+<p>select <em> from score where YEAR(create_time) &lt;= ‘2017’ select </em> from user where phone=13800001234</p>
+<p>6.【推荐】数据区分度不大的字段不宜使用索引，效果不明显。</p>
+<p>说明：”状态”、”性别”这种区分度不大的属性，建立索引是没有什么意义的，不能有效过滤数据，性能与全表扫描类似。反例：select * from user whre sex=1</p>
+<p>7.【推荐】OR查询最好改为IN查询。</p>
+<p>说明：InnoDB引擎中OR查询不能命中索引，MyISAM能命中索引，但会耗费更多的CPU。</p>
+<p>8.【推荐】超过三个表不要使用join。需要join的字段,数据类型必须绝对一致;多表关联查询时,保证被关联的字段需要有索引。说明:即使双表join也要注意表索引、SQL性能。</p>
+<p>9.【推荐】如果有order by的场景,请注意利用索引的有序性。order by最后的字段是组合 索引的一部分,并且放在索引组合顺序的最后,避免出现file_sort的情况,影响查询性能。</p>
+<p>正例:where a=? and b=? order by c; 索引:a_b_c</p>
+<p>反例:索引中有范围查找,那么索引有序性无法利用,如:WHERE a&gt;10 ORDER BY b;索引a_b无法排序。10.建组合索引的时候,区分度最高的在最左边。</p>
+<p>正例:如果where a=? and b=? ,a列的几乎接近于唯一值,那么只需要单建 idx_a索引即可。</p>
+<p>说明:存在非等号和等号混合判断条件时,在建索引时,请把等号条件的列前置。如:where a&gt;? and b=?那么即使a的区分度更高,也必须把b放在索引的最前列。</p>
+<h2 id="3-SQL语句"><a href="#3-SQL语句" class="headerlink" title="3 SQL语句"></a>3 SQL语句</h2><p>1.【推荐】尽量不要使用select *。</p>
+<p>2.【推荐】禁止大表使用join，禁止大表使用子查询。</p>
+<p>3.【推荐】不要使用count(列名)或count(常量)来替代count,count(<em>)是SQL92定义的标准统计行数的语法,跟数据库无关,跟NULL和非NULL无关。说明:count(</em>)会统计值为NULL的行,而count(列名)不会统计此列为NULL值的行。</p>
+<p>4.【强制】使用ISNULL()来判断是否为NULL值。注意:NULL与任何值的直接比较都为NULL。</p>
+<blockquote>
+<p>说明:</p>
+<p>NULL&lt;&gt;NULL的返回结果是NULL,而不是false。</p>
+<p>NULL=NULL的返回结果是NULL,而不是true。</p>
+<p>* NULL&lt;&gt;1的返回结果是NULL,而不是true。</p>
+</blockquote>
+<p>5.【推荐】在代码中写分页查询逻辑时,若count为0应直接返回,避免执行后面的分页语句。</p>
+<p>6.【推荐】不要使用存储过程,存储过程难以调试和扩展,更没有移植性。</p>
+<h2 id="4其他"><a href="#4其他" class="headerlink" title="4其他"></a>4其他</h2><p>1.【强制】不要使用BLOB相关类型存储大文件或者大照片。说明：文件应使用文件系统存储，数据库存文件的URI</p>
+<p>2.【推荐】把计算尽量放到业务层(代码层)而不是数据库层，可以节省数据库服务的CPU资源，还可以根据场景在业务层进行缓存等优化，减少数据库压力。</p>
+</logger>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">Reprint please specify: </span>
+                    <a href="https://asiacuityz.github.io" class="b-link-green">Asia</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/08/Java规范/" class="b-link-green">Java规范</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">Previous</div>
+            <div class="card">
+                <a href="/2019/01/08/分布式锁的场景与实现/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="分布式锁的场景与实现">
+                        
+                        <span class="card-title">分布式锁的场景与实现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">使用场景首先，我们看这样一个场景：客户下单的时候，我们调用库存中心进行减库存，那我们一般的操作都是：
+update store set num = $num where id = $id
+
+
+这种通过设置库存的修改方式，我们知道在并发量高的</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/分布式/" class="post-category" target="_blank">
+                                    分布式
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/道/" target="_blank">
+                        <span class="chip bg-color">道</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">Next</div>
+            <div class="card">
+                <a href="/2019/01/08/Session一致性/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Session一致性">
+                        
+                        <span class="card-title">Session一致性</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">session的概念什么是session？服务器为每个用户创建一个会话，存储用户的相关信息，以便多次请求能够定位到同一个上下文。这样，当用户在应用程序的 Web 页之间跳转时，存储在 Session 对象中的变量将不会丢失，而是在整个用户会</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Session/" class="post-category" target="_blank">
+                                    Session
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/道/" target="_blank">
+                        <span class="chip bg-color">道</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">TOC</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            <!--本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 采用
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>的主题搭建. -->
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131536389-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131536389-1');
+</script>
+
+
+</body>
+</html>

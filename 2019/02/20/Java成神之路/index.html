@@ -1,0 +1,952 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java成神之路, Asia">
+    <meta name="description" content="一、基础篇面向对象→ 什么是面向对象面向对象、面向过程
+面向对象的三大基本特征和五大基本原则
+→ 平台无关性Java 如何实现的平台无关
+JVM 还支持哪些语言（Kotlin、Groovy、JRuby、Jython、Scala）
+→ 值传递">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java成神之路 | Asia</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-base16-ateliersulphurpool.light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Asia</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/utils" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-book"></i>
+            
+            <span>工具</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/doc" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-wordpress"></i>
+            
+            <span>文档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>伙伴</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Asia</div>
+        <div class="logo-desc">
+            
+            不心累
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/utils" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-book"></i>
+                
+                工具
+            </a>
+        </li>
+        
+        <li>
+            <a href="/doc" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-wordpress"></i>
+                
+                文档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                伙伴
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/asiacuityz" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>关于
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/asiacuityz" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="关于" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java成神之路
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/道/" target="_blank">
+                    <span class="chip bg-color">道</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/Java成神之路/" class="post-category" target="_blank">
+                        Java成神之路
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-02-20
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="一、基础篇"><a href="#一、基础篇" class="headerlink" title="一、基础篇"></a>一、基础篇</h1><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>→ 什么是面向对象<br>面向对象、面向过程</p>
+<p>面向对象的三大基本特征和五大基本原则</p>
+<p>→ 平台无关性<br>Java 如何实现的平台无关</p>
+<p>JVM 还支持哪些语言（Kotlin、Groovy、JRuby、Jython、Scala）</p>
+<p>→ 值传递<br>值传递、引用传递</p>
+<p>为什么说 Java 中只有值传递</p>
+<h2 id="Java-基础知识"><a href="#Java-基础知识" class="headerlink" title="Java 基础知识"></a>Java 基础知识</h2><h4 id="→-基本数据类型"><a href="#→-基本数据类型" class="headerlink" title="→ 基本数据类型"></a>→ 基本数据类型</h4><p>8 种基本数据类型：整型、浮点型、布尔型、字符型</p>
+<p>整型中 byte、short、int、long 的取值范围</p>
+<p>什么是浮点型？什么是单精度和双精度？为什么不能用浮点型表示金额？</p>
+<h4 id="→-自动拆装箱"><a href="#→-自动拆装箱" class="headerlink" title="→ 自动拆装箱"></a>→ 自动拆装箱</h4><p>什么是包装类型、什么是基本类型、什么是自动拆装箱</p>
+<p>Integer 的缓存机制</p>
+<h4 id="→-String"><a href="#→-String" class="headerlink" title="→ String"></a>→ String</h4><p>字符串的不可变性</p>
+<p>JDK 6 和 JDK 7 中 substring 的原理及区别、</p>
+<p>replaceFirst、replaceAll、replace 区别、</p>
+<p>String 对“+”的重载、字符串拼接的几种方式和区别</p>
+<p>String.valueOf 和 Integer.toString 的区别、</p>
+<p>switch 对 String 的支持</p>
+<p>字符串池、常量池（运行时常量池、Class 常量池）、intern</p>
+<h4 id="→-熟悉-Java-中各种关键字"><a href="#→-熟悉-Java-中各种关键字" class="headerlink" title="→ 熟悉 Java 中各种关键字"></a>→ 熟悉 Java 中各种关键字</h4><p>transient、instanceof、final、static、volatile、synchronized、const 原理及用法</p>
+<h4 id="→-集合类"><a href="#→-集合类" class="headerlink" title="→ 集合类"></a>→ 集合类</h4><p>常用集合类的使用、ArrayList 和 LinkedList 和 Vector 的区别 、SynchronizedList 和 Vector 的区别、HashMap、HashTable、ConcurrentHashMap 区别、</p>
+<p>Set 和 List 区别？Set 如何保证元素不重复？</p>
+<p>Java 8 中 stream 相关用法、apache 集合处理工具类的使用、不同版本的 JDK 中 HashMap 的实现的区别以及原因</p>
+<p>Collection 和 Collections 区别</p>
+<p>Arrays.asList 获得的 List 使用时需要注意什么</p>
+<p>Enumeration 和 Iterator 区别</p>
+<p>fail-fast 和 fail-safe</p>
+<p>CopyOnWriteArrayList、ConcurrentSkipListMap</p>
+<h4 id="→-枚举"><a href="#→-枚举" class="headerlink" title="→ 枚举"></a>→ 枚举</h4><p>枚举的用法、枚举的实现、枚举与单例、Enum 类</p>
+<p>Java 枚举如何比较</p>
+<p>switch 对枚举的支持</p>
+<p>枚举的序列化如何实现</p>
+<p>枚举的线程安全性问题</p>
+<h4 id="→-IO"><a href="#→-IO" class="headerlink" title="→ IO"></a>→ IO</h4><p>字符流、字节流、输入流、输出流、</p>
+<p>同步、异步、阻塞、非阻塞、Linux 5 种 IO 模型</p>
+<p>BIO、NIO 和 AIO 的区别、三种 IO 的用法与原理、netty</p>
+<h4 id="→-反射"><a href="#→-反射" class="headerlink" title="→ 反射"></a>→ 反射</h4><p>反射与工厂模式、反射有什么用</p>
+<p>Class 类、java.lang.reflect.*</p>
+<h4 id="→-动态代理"><a href="#→-动态代理" class="headerlink" title="→ 动态代理"></a>→ 动态代理</h4><p>静态代理、动态代理</p>
+<p>动态代理和反射的关系</p>
+<p>动态代理的几种实现方式</p>
+<p>AOP</p>
+<h4 id="→-序列化"><a href="#→-序列化" class="headerlink" title="→ 序列化"></a>→ 序列化</h4><p>什么是序列化与反序列化、为什么序列化、序列化底层原理、序列化与单例模式、protobuf、为什么说序列化并不安全</p>
+<p>#### </p>
+<h4 id="→-注解"><a href="#→-注解" class="headerlink" title="→ 注解"></a><strong>→ 注解</strong></h4><p>元注解、自定义注解、Java 中常用注解使用、注解与反射的结合</p>
+<p>Spring 常用注解</p>
+<h4 id="→-JMS"><a href="#→-JMS" class="headerlink" title="→ JMS"></a>→ JMS</h4><p>什么是 Java 消息服务、JMS 消息传送模型</p>
+<h4 id="→-JMX"><a href="#→-JMX" class="headerlink" title="→ JMX"></a>→ JMX</h4><p>java.lang.management.<em>、 javax.management.</em></p>
+<h4 id="→-泛型"><a href="#→-泛型" class="headerlink" title="→ 泛型"></a>→ 泛型</h4><p>泛型与继承、类型擦除、泛型中 KTVE? object 等的含义、泛型各种用法</p>
+<p>限定通配符和非限定通配符、上下界限定符 extends 和 super</p>
+<p>List<object> 和原始类型 List 之间的区别? </object></p>
+<p>List&lt;?&gt; 和 List<object> 之间的区别是什么?</object></p>
+<h4 id="→-单元测试"><a href="#→-单元测试" class="headerlink" title="→ 单元测试"></a>→ 单元测试</h4><p>junit、mock、mockito、内存数据库（h2）</p>
+<h4 id="→-正则表达式"><a href="#→-正则表达式" class="headerlink" title="→ 正则表达式"></a>→ 正则表达式</h4><p>java.lang.util.regex.*</p>
+<h4 id="→-常用的-Java-工具库"><a href="#→-常用的-Java-工具库" class="headerlink" title="→ 常用的 Java 工具库"></a>→ 常用的 Java 工具库</h4><p>commons.lang、commons.*…、 guava-libraries、 netty</p>
+<h4 id="→-API-amp-SPI"><a href="#→-API-amp-SPI" class="headerlink" title="→ API &amp; SPI"></a>→ API &amp; SPI</h4><p>API、API 和 SPI 的关系和区别</p>
+<p>如何定义 SPI、SPI 的实现原理</p>
+<h4 id="→-异常"><a href="#→-异常" class="headerlink" title="→ 异常"></a>→ 异常</h4><p>异常类型、正确处理异常、自定义异常</p>
+<p>Error 和 Exception</p>
+<p>异常链、try-with-resources</p>
+<p>finally 和 return 的执行顺序</p>
+<h4 id="→-时间处理"><a href="#→-时间处理" class="headerlink" title="→ 时间处理"></a>→ 时间处理</h4><p>时区、冬令时和夏令时、时间戳、Java 中时间 API</p>
+<p>格林威治时间、CET,UTC,GMT,CST 几种常见时间的含义和关系</p>
+<p>SimpleDateFormat 的线程安全性问题</p>
+<p>Java 8 中的时间处理</p>
+<p>如何在东八区的计算机上获取美国时间</p>
+<h4 id="→-编码方式"><a href="#→-编码方式" class="headerlink" title="→ 编码方式"></a>→ 编码方式</h4><p>Unicode、有了 Unicode 为啥还需要 UTF-8</p>
+<p>GBK、GB2312、GB18030 之间的区别</p>
+<p>UTF8、UTF16、UTF32 区别</p>
+<p>URL 编解码、Big Endian 和 Little Endian</p>
+<p>如何解决乱码问题</p>
+<h4 id="→-语法糖"><a href="#→-语法糖" class="headerlink" title="→ 语法糖"></a>→ 语法糖</h4><p>Java 中语法糖原理、解语法糖</p>
+<p>语法糖：switch 支持 String 与枚举、泛型、自动装箱与拆箱、方法变长参数、枚举、内部类、条件编译、 断言、数值字面量、for-each、try-with-resource、Lambda 表达式</p>
+<h2 id="阅读源代码"><a href="#阅读源代码" class="headerlink" title="阅读源代码"></a>阅读源代码</h2><p>String、Integer、Long、Enum、</p>
+<p>BigDecimal、ThreadLocal、ClassLoader &amp; URLClassLoader、</p>
+<p>ArrayList &amp; LinkedList、 </p>
+<p>HashMap &amp; LinkedHashMap &amp; TreeMap &amp; CouncurrentHashMap、HashSet &amp; LinkedHashSet &amp; TreeSet</p>
+<h2 id="Java-并发编程"><a href="#Java-并发编程" class="headerlink" title="Java 并发编程"></a>Java 并发编程</h2><h4 id="→-并发与并行"><a href="#→-并发与并行" class="headerlink" title="→ 并发与并行"></a><strong>→ 并发与并行</strong></h4><p>什么是并发、什么是并行</p>
+<p>并发与并行的区别</p>
+<h4 id="→-什么是线程，与进程的区别"><a href="#→-什么是线程，与进程的区别" class="headerlink" title="→ 什么是线程，与进程的区别"></a><strong>→ 什么是线程，与进程的区别</strong></h4><p>线程的实现、线程的状态、优先级、线程调度、创建线程的多种方式、守护线程</p>
+<p>线程与进程的区别</p>
+<h4 id="→-线程池"><a href="#→-线程池" class="headerlink" title="→ 线程池"></a>→ 线程池</h4><p>自己设计线程池、submit() 和 execute()、线程池原理</p>
+<p>为什么不允许使用 Executors 创建线程池</p>
+<h4 id="→-线程安全"><a href="#→-线程安全" class="headerlink" title="→ 线程安全"></a>→ 线程安全</h4><p>死锁、死锁如何排查、线程安全和内存模型的关系</p>
+<h4 id="→-锁"><a href="#→-锁" class="headerlink" title="→ 锁"></a>→ 锁</h4><p>CAS、乐观锁与悲观锁、数据库相关锁机制、分布式锁、偏向锁、轻量级锁、重量级锁、monitor、</p>
+<p>锁优化、锁消除、锁粗化、自旋锁、可重入锁、阻塞锁、死锁</p>
+<h4 id="→-死锁"><a href="#→-死锁" class="headerlink" title="→ 死锁"></a>→ 死锁</h4><p>什么是死锁</p>
+<p>死锁如何解决</p>
+<h4 id="→-synchronized"><a href="#→-synchronized" class="headerlink" title="→ synchronized"></a>→ synchronized</h4><p>synchronized 是如何实现的？</p>
+<p>synchronized 和 lock 之间关系、不使用 synchronized 如何实现一个线程安全的单例</p>
+<p>synchronized 和原子性、可见性和有序性之间的关系</p>
+<h4 id="→-volatile"><a href="#→-volatile" class="headerlink" title="→ volatile"></a>→ volatile</h4><p>happens-before、内存屏障、编译器指令重排和 CPU 指令重</p>
+<p>volatile 的实现原理</p>
+<p>volatile 和原子性、可见性和有序性之间的关系</p>
+<p>有了 symchronized 为什么还需要 volatile</p>
+<h4 id="→-sleep-和-wait"><a href="#→-sleep-和-wait" class="headerlink" title="→ sleep 和 wait"></a><strong>→ sleep 和 wait</strong></h4><h4 id="→-wait-和-notify"><a href="#→-wait-和-notify" class="headerlink" title="→ wait 和 notify"></a><strong>→ wait 和 notify</strong></h4><h4 id="→-notify-和-notifyAll"><a href="#→-notify-和-notifyAll" class="headerlink" title="→ notify 和 notifyAll"></a><strong>→ notify 和 notifyAll</strong></h4><h4 id="→-ThreadLocal"><a href="#→-ThreadLocal" class="headerlink" title="→ ThreadLocal"></a><strong>→ ThreadLocal</strong></h4><h4 id="→-写一个死锁的程序"><a href="#→-写一个死锁的程序" class="headerlink" title="→ 写一个死锁的程序"></a><strong>→ 写一个死锁的程序</strong></h4><h4 id="→-写代码来解决生产者消费者问题"><a href="#→-写代码来解决生产者消费者问题" class="headerlink" title="→ 写代码来解决生产者消费者问题"></a><strong>→ 写代码来解决生产者消费者问题</strong></h4><h4 id="→-并方包"><a href="#→-并方包" class="headerlink" title="→ 并方包"></a><strong>→ 并方包</strong></h4><p>Thread、Runnable、Callable、ReentrantLock、ReentrantReadWriteLock、Atomic*、Semaphore、CountDownLatch、ConcurrentHashMap、Executors</p>
+<h1 id="二、底层篇"><a href="#二、底层篇" class="headerlink" title="二、底层篇"></a>二、底层篇</h1><h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h4 id="→-JVM-内存结构"><a href="#→-JVM-内存结构" class="headerlink" title="→ JVM 内存结构"></a>→ JVM 内存结构</h4><p>class 文件格式、运行时数据区：堆、栈、方法区、直接内存、运行时常量池、</p>
+<p>堆和栈区别</p>
+<p>Java 中的对象一定在堆上分配吗？</p>
+<h4 id="→-Java-内存模型"><a href="#→-Java-内存模型" class="headerlink" title="→ Java 内存模型"></a><strong>→ Java 内存模型</strong></h4><p>计算机内存模型、缓存一致性、MESI 协议</p>
+<p>可见性、原子性、顺序性、happens-before、</p>
+<p>内存屏障、synchronized、volatile、final、锁</p>
+<h4 id="→-垃圾回收"><a href="#→-垃圾回收" class="headerlink" title="→ 垃圾回收"></a>→ 垃圾回收</h4><p>GC 算法：标记清除、引用计数、复制、标记压缩、分代回收、增量式回收</p>
+<p>GC 参数、对象存活的判定、垃圾收集器（CMS、G1、ZGC、Epsilon）</p>
+<h4 id="→-JVM-参数及调优"><a href="#→-JVM-参数及调优" class="headerlink" title="→ JVM 参数及调优"></a>→ JVM 参数及调优</h4><p>-Xmx、-Xmn、-Xms、Xss、-XX:SurvivorRatio、</p>
+<p>-XX:PermSize、-XX:MaxPermSize、-XX:MaxTenuringThreshold</p>
+<h4 id="→-Java-对象模型"><a href="#→-Java-对象模型" class="headerlink" title="→ Java 对象模型"></a>→ Java 对象模型</h4><p>oop-klass、对象头</p>
+<h4 id="→-HotSpot"><a href="#→-HotSpot" class="headerlink" title="→ HotSpot"></a>→ HotSpot</h4><p>即时编译器、编译优化</p>
+<h4 id="→-虚拟机性能监控与故障处理工具"><a href="#→-虚拟机性能监控与故障处理工具" class="headerlink" title="→ 虚拟机性能监控与故障处理工具"></a>→ 虚拟机性能监控与故障处理工具</h4><p>jps, jstack, jmap, jstat, jconsole, jinfo, jhat, javap, btrace, TProfiler</p>
+<p>Arthas</p>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><p>classLoader、类加载过程、双亲委派（破坏双亲委派）、模块化（jboss modules、osgi、jigsaw）</p>
+<h2 id="编译与反编译"><a href="#编译与反编译" class="headerlink" title="编译与反编译"></a>编译与反编译</h2><p>什么是编译（前端编译、后端编译）、什么是反编译</p>
+<p>JIT、JIT 优化（逃逸分析、栈上分配、标量替换、锁优化）</p>
+<p>编译工具：javac</p>
+<p>反编译工具：javap 、jad 、CRF</p>
+<h1 id="三、进阶篇"><a href="#三、进阶篇" class="headerlink" title="三、进阶篇"></a>三、进阶篇</h1><h2 id="Java-底层知识"><a href="#Java-底层知识" class="headerlink" title="Java 底层知识"></a>Java 底层知识</h2><h4 id="→-字节码、class-文件格式"><a href="#→-字节码、class-文件格式" class="headerlink" title="→ 字节码、class 文件格式"></a><strong>→ 字节码、class 文件格式</strong></h4><h4 id="→-CPU-缓存，L1，L2，L3-和伪共享"><a href="#→-CPU-缓存，L1，L2，L3-和伪共享" class="headerlink" title="→ CPU 缓存，L1，L2，L3 和伪共享"></a><strong>→ CPU 缓存，L1，L2，L3 和伪共享</strong></h4><h4 id="→-尾递归"><a href="#→-尾递归" class="headerlink" title="→ 尾递归"></a><strong>→ 尾递归</strong></h4><h4 id="→-位运算"><a href="#→-位运算" class="headerlink" title="→ 位运算"></a><strong>→ 位运算</strong></h4><p>用位运算实现加、减、乘、除、取余</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>设计模式的六大原则：</p>
+<p>开闭原则（Open Close Principle）、里氏代换原则（Liskov Substitution Principle）、依赖倒转原则（Dependence Inversion Principle）</p>
+<p>接口隔离原则（Interface Segregation Principle）、迪米特法则（最少知道原则）（Demeter Principle）、合成复用原则（Composite Reuse Principle）</p>
+<p><strong>→ 了解 23 种设计模式</strong></p>
+<p>创建型模式：单例模式、抽象工厂模式、建造者模式、工厂模式、原型模式。</p>
+<p>结构型模式：适配器模式、桥接模式、装饰模式、组合模式、外观模式、享元模式、代理模式。</p>
+<p>行为型模式：模版方法模式、命令模式、迭代器模式、观察者模式、中介者模式、备忘录模式、解释器模式（Interpreter 模式）、状态模式、策略模式、职责链模式(责任链模式)、访问者模式。</p>
+<h4 id="→-会使用常用设计模式"><a href="#→-会使用常用设计模式" class="headerlink" title="→ 会使用常用设计模式"></a><strong>→ 会使用常用设计模式</strong></h4><p>单例的七种写法：懒汉——线程不安全、懒汉——线程安全、饿汉、饿汉——变种、静态内部类、枚举、双重校验锁</p>
+<p>工厂模式、适配器模式、策略模式、模板方法模式、观察者模式、外观模式、代理模式等必会</p>
+<h4 id="→-不用-synchronized-和-lock，实现线程安全的单例模式"><a href="#→-不用-synchronized-和-lock，实现线程安全的单例模式" class="headerlink" title="→ 不用 synchronized 和 lock，实现线程安全的单例模式"></a><strong>→</strong> <strong>不用 synchronized 和 lock，实现线程安全的单例模式</strong></h4><h4 id="→-实现-AOP"><a href="#→-实现-AOP" class="headerlink" title="→ 实现 AOP"></a><strong>→ 实现 AOP</strong></h4><h4 id="→-实现-IOC"><a href="#→-实现-IOC" class="headerlink" title="→ 实现 IOC"></a><strong>→ 实现 IOC</strong></h4><h4 id="→-nio-和-reactor-设计模式"><a href="#→-nio-和-reactor-设计模式" class="headerlink" title="→ nio 和 reactor 设计模式"></a><strong>→ nio 和 reactor 设计模式</strong></h4><h2 id="网络编程知识"><a href="#网络编程知识" class="headerlink" title="网络编程知识"></a>网络编程知识</h2><p><strong>→ tcp、udp、http、https 等常用协议</strong></p>
+<p>三次握手与四次关闭、流量控制和拥塞控制、OSI 七层模型、tcp 粘包与拆包</p>
+<h4 id="→-http-1-0-http-1-1-http-2-之前的区别"><a href="#→-http-1-0-http-1-1-http-2-之前的区别" class="headerlink" title="→ http/1.0 http/1.1 http/2 之前的区别"></a><strong>→ http/1.0 http/1.1 http/2 之前的区别</strong></h4><p>http 中 get 和 post 区别</p>
+<p>常见的 web 请求返回的状态码</p>
+<p>404、302、301、500分别代表什么</p>
+<h4 id="→-http-3"><a href="#→-http-3" class="headerlink" title="→ http/3"></a><strong>→ http/3</strong></h4><h4 id="→-Java-RMI，Socket，HttpClient"><a href="#→-Java-RMI，Socket，HttpClient" class="headerlink" title="→ Java RMI，Socket，HttpClient"></a><strong>→ Java RMI，Socket，HttpClient</strong></h4><h4 id="→-cookie-与-session"><a href="#→-cookie-与-session" class="headerlink" title="→ cookie 与 session"></a><strong>→ cookie 与 session</strong></h4><p>cookie 被禁用，如何实现 session</p>
+<h4 id="→-用-Java-写一个简单的静态文件的-HTTP-服务器"><a href="#→-用-Java-写一个简单的静态文件的-HTTP-服务器" class="headerlink" title="→ 用 Java 写一个简单的静态文件的 HTTP 服务器"></a><strong>→ 用 Java 写一个简单的静态文件的 HTTP 服务器</strong></h4><h4 id="→-了解-nginx-和-apache-服务器的特性并搭建一个对应的服务器"><a href="#→-了解-nginx-和-apache-服务器的特性并搭建一个对应的服务器" class="headerlink" title="→ 了解 nginx 和 apache 服务器的特性并搭建一个对应的服务器"></a><strong>→ 了解 nginx 和 apache 服务器的特性并搭建一个对应的服务器</strong></h4><h4 id="→-用-Java-实现-FTP、SMTP-协议"><a href="#→-用-Java-实现-FTP、SMTP-协议" class="headerlink" title="→ 用 Java 实现 FTP、SMTP 协议"></a><strong>→ 用 Java 实现 FTP、SMTP 协议</strong></h4><h4 id="→-进程间通讯的方式"><a href="#→-进程间通讯的方式" class="headerlink" title="→ 进程间通讯的方式"></a><strong>→ 进程间通讯的方式</strong></h4><h4 id="→-什么是-CDN？如果实现？"><a href="#→-什么是-CDN？如果实现？" class="headerlink" title="→ 什么是 CDN？如果实现？"></a><strong>→ 什么是 CDN？如果实现？</strong></h4><h4 id="→-DNS"><a href="#→-DNS" class="headerlink" title="→ DNS"></a><strong>→ DNS</strong></h4><h4 id="什么是-DNS-、记录类型-A-记录、CNAME-记录、AAAA-记录等"><a href="#什么是-DNS-、记录类型-A-记录、CNAME-记录、AAAA-记录等" class="headerlink" title="什么是 DNS 、记录类型: A 记录、CNAME 记录、AAAA 记录等"></a>什么是 DNS 、记录类型: A 记录、CNAME 记录、AAAA 记录等</h4><p>域名解析、根域名服务器</p>
+<p>DNS 污染、DNS 劫持、公共 DNS：114 DNS、Google DNS、OpenDNS</p>
+<h4 id="→-反向代理"><a href="#→-反向代理" class="headerlink" title="→ 反向代理"></a><strong>→ 反向代理</strong></h4><p>正向代理、反向代理</p>
+<p>反向代理服务器</p>
+<h2 id="框架知识"><a href="#框架知识" class="headerlink" title="框架知识"></a>框架知识</h2><p><strong>→ Servlet</strong></p>
+<p>生命周期</p>
+<p>线程安全问题</p>
+<p>filter 和 listener</p>
+<p>web.xml 中常用配置及作用</p>
+<h4 id="→-Hibernate"><a href="#→-Hibernate" class="headerlink" title="→ Hibernate"></a><strong>→ Hibernate</strong></h4><p>什么是 OR Mapping</p>
+<h4 id="Hibernate-的懒加载"><a href="#Hibernate-的懒加载" class="headerlink" title="Hibernate 的懒加载"></a>Hibernate 的懒加载</h4><p>Hibernate 的缓存机制</p>
+<p>Hibernate / Ibatis / MyBatis 之间的区别</p>
+<h4 id="→-Spring"><a href="#→-Spring" class="headerlink" title="→ Spring"></a><strong>→ Spring</strong></h4><h4 id="Bean-的初始化"><a href="#Bean-的初始化" class="headerlink" title="Bean 的初始化"></a>Bean 的初始化</h4><h4 id="AOP-原理"><a href="#AOP-原理" class="headerlink" title="AOP 原理"></a>AOP 原理</h4><h4 id="实现-Spring-的IOC"><a href="#实现-Spring-的IOC" class="headerlink" title="实现 Spring 的IOC"></a>实现 Spring 的IOC</h4><h4 id="Spring-四种依赖注入方式"><a href="#Spring-四种依赖注入方式" class="headerlink" title="Spring 四种依赖注入方式"></a>Spring 四种依赖注入方式</h4><h4 id="→-Spring-MVC"><a href="#→-Spring-MVC" class="headerlink" title="→ Spring MVC"></a><strong>→ Spring MVC</strong></h4><p>什么是 MVC</p>
+<p>Spring mvc 与 Struts mvc 的区别</p>
+<h4 id="→-Spring-Boot"><a href="#→-Spring-Boot" class="headerlink" title="→ Spring Boot"></a><strong>→ Spring Boot</strong></h4><p>Spring Boot 2.0、起步依赖、自动配置、</p>
+<p>Spring Boot 的 starter 原理，自己实现一个 starter</p>
+<h4 id="→-Spring-Security"><a href="#→-Spring-Security" class="headerlink" title="→ Spring Security"></a><strong>→ Spring Security</strong></h4><h3 id="→-Spring-Cloud"><a href="#→-Spring-Cloud" class="headerlink" title="→ Spring Cloud"></a><strong>→ Spring Cloud</strong></h3><p>服务发现与注册：Eureka、Zookeeper、Consul</p>
+<p>负载均衡：Feign、Spring Cloud Loadbalance</p>
+<p>服务配置：Spring Cloud Config</p>
+<p>服务限流与熔断：Hystrix</p>
+<p>服务链路追踪：Dapper</p>
+<p>服务网关、安全、消息</p>
+<h2 id="应用服务器知识"><a href="#应用服务器知识" class="headerlink" title="应用服务器知识"></a>应用服务器知识</h2><p><strong>→ JBoss</strong></p>
+<h4 id="→-tomcat"><a href="#→-tomcat" class="headerlink" title="→ tomcat"></a><strong>→ tomcat</strong></h4><h4 id="→-jetty"><a href="#→-jetty" class="headerlink" title="→ jetty"></a><strong>→ jetty</strong></h4><h4 id="→-Weblogic"><a href="#→-Weblogic" class="headerlink" title="→ Weblogic"></a><strong>→ Weblogic</strong></h4><h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p><strong>→ git &amp; svn</strong></p>
+<h4 id="→-maven-amp-gradle"><a href="#→-maven-amp-gradle" class="headerlink" title="→ maven &amp; gradle"></a><strong>→ maven &amp; gradle</strong></h4><h4 id="→-Intellij-IDEA"><a href="#→-Intellij-IDEA" class="headerlink" title="→ Intellij IDEA"></a><strong>→ Intellij IDEA</strong></h4><p>常用插件：Maven Helper 、FindBugs-IDEA、阿里巴巴代码规约检测、GsonFormat</p>
+<p>Lombok plugin、.ignore、Mybatis plugin  </p>
+<h1 id="四、高级篇"><a href="#四、高级篇" class="headerlink" title="四、高级篇"></a>四、高级篇</h1><h2 id="新技术"><a href="#新技术" class="headerlink" title="新技术"></a>新技术</h2><p><strong>→ Java 8</strong></p>
+<p>lambda 表达式、Stream API、时间 API</p>
+<h4 id="→-Java-9"><a href="#→-Java-9" class="headerlink" title="→ Java 9"></a><strong>→ Java 9</strong></h4><p>Jigsaw、Jshell、Reactive Streams</p>
+<h4 id="→-Java-10"><a href="#→-Java-10" class="headerlink" title="→ Java 10"></a><strong>→ Java 10</strong></h4><p>局部变量类型推断、G1 的并行 Full GC、ThreadLocal 握手机制</p>
+<h4 id="→-Java-11"><a href="#→-Java-11" class="headerlink" title="→ Java 11"></a><strong>→ Java 11</strong></h4><p>ZGC、Epsilon、增强 var</p>
+<h4 id="→-Spring-5"><a href="#→-Spring-5" class="headerlink" title="→ Spring 5"></a><strong>→ Spring 5</strong></h4><p>响应式编程</p>
+<h4 id="→-Spring-Boot-2-0"><a href="#→-Spring-Boot-2-0" class="headerlink" title="→ Spring Boot 2.0"></a><strong>→ Spring Boot 2.0</strong></h4><h4 id="→-HTTP-2"><a href="#→-HTTP-2" class="headerlink" title="→ HTTP/2"></a><strong>→ HTTP/2</strong></h4><h4 id="→-HTTP-3"><a href="#→-HTTP-3" class="headerlink" title="→ HTTP/3"></a><strong>→ HTTP/3</strong></h4><h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><p>使用单例、使用 Future 模式、使用线程池</p>
+<p>选择就绪、减少上下文切换、减少锁粒度、数据压缩、结果缓存</p>
+<h2 id="线上问题分析"><a href="#线上问题分析" class="headerlink" title="线上问题分析"></a>线上问题分析</h2><p><strong>→ dump 获取</strong></p>
+<p>线程 Dump、内存 Dump、gc 情况</p>
+<h4 id="→-dump-分析"><a href="#→-dump-分析" class="headerlink" title="→ dump 分析"></a><strong>→ dump 分析</strong></h4><p>分析死锁、分析内存泄露</p>
+<h4 id="→-dump-分析及获取工具"><a href="#→-dump-分析及获取工具" class="headerlink" title="→ dump 分析及获取工具"></a><strong>→ dump 分析及获取工具</strong></h4><p>jstack、jstat、jmap、jhat、Arthas</p>
+<h4 id="→-自己编写各种-outofmemory，stackoverflow-程序"><a href="#→-自己编写各种-outofmemory，stackoverflow-程序" class="headerlink" title="→ 自己编写各种 outofmemory，stackoverflow 程序"></a><strong>→ 自己编写各种 outofmemory，stackoverflow 程序</strong></h4><p>HeapOutOfMemory、 Young OutOfMemory、</p>
+<p>MethodArea OutOfMemory、ConstantPool OutOfMemory、</p>
+<p>DirectMemory OutOfMemory、Stack OutOfMemory Stack OverFlow</p>
+<h4 id="→-Arthas"><a href="#→-Arthas" class="headerlink" title="→ Arthas"></a><strong>→ Arthas</strong></h4><p>jvm 相关、class/classloader 相关、monitor/watch/trace 相关、</p>
+<p>options、管道、后台异步任务</p>
+<p>文档：<a href="https://alibaba.github.io/arthas/advanced-use.html" target="_blank" rel="noopener">https://alibaba.github.io/arthas/advanced-use.html</a></p>
+<h4 id="→-常见问题解决思路"><a href="#→-常见问题解决思路" class="headerlink" title="→ 常见问题解决思路"></a><strong>→ 常见问题解决思路</strong></h4><p>内存溢出、线程死锁、类加载冲突</p>
+<h4 id="→-使用工具尝试解决以下问题，并写下总结"><a href="#→-使用工具尝试解决以下问题，并写下总结" class="headerlink" title="→ 使用工具尝试解决以下问题，并写下总结"></a><strong>→ 使用工具尝试解决以下问题，并写下总结</strong></h4><p>当一个 Java 程序响应很慢时如何查找问题</p>
+<p>当一个 Java 程序频繁 FullGC 时如何解决问题</p>
+<p>如何查看垃圾回收日志</p>
+<p>当一个 Java 应用发生 OutOfMemory 时该如何解决</p>
+<p>如何判断是否出现死锁</p>
+<p>如何判断是否存在内存泄露</p>
+<p>使用 Arthas 快速排查 Spring Boot 应用404/401问题</p>
+<p>使用 Arthas 排查线上应用日志打满问题</p>
+<p>利用 Arthas 排查 Spring Boot 应用 NoSuchMethodError</p>
+<h2 id="编译原理知识"><a href="#编译原理知识" class="headerlink" title="编译原理知识"></a>编译原理知识</h2><p><strong>→ 编译与反编译</strong></p>
+<h4 id="→-Java-代码的编译与反编译"><a href="#→-Java-代码的编译与反编译" class="headerlink" title="→ Java 代码的编译与反编译"></a><strong>→ Java 代码的编译与反编译</strong></h4><h4 id="→-Java-的反编译工具"><a href="#→-Java-的反编译工具" class="headerlink" title="→ Java 的反编译工具"></a><strong>→ Java 的反编译工具</strong></h4><p>javap 、jad 、CRF</p>
+<h4 id="→-即时编译器"><a href="#→-即时编译器" class="headerlink" title="→ 即时编译器"></a><strong>→ 即时编译器</strong></h4><h4 id="→-编译过程"><a href="#→-编译过程" class="headerlink" title="→ 编译过程"></a><strong>→ 编译过程</strong></h4><h4 id="词法分析，语法分析（LL-算法，递归下降算法，LR-算法）"><a href="#词法分析，语法分析（LL-算法，递归下降算法，LR-算法）" class="headerlink" title="词法分析，语法分析（LL 算法，递归下降算法，LR 算法）"></a>词法分析，语法分析（LL 算法，递归下降算法，LR 算法）</h4><h4 id="语义分析，运行时环境，中间代码，代码生成，代码优化"><a href="#语义分析，运行时环境，中间代码，代码生成，代码优化" class="headerlink" title="语义分析，运行时环境，中间代码，代码生成，代码优化"></a>语义分析，运行时环境，中间代码，代码生成，代码优化</h4><h2 id="操作系统知识"><a href="#操作系统知识" class="headerlink" title="操作系统知识"></a>操作系统知识</h2><h4 id="→-Linux-的常用命令"><a href="#→-Linux-的常用命令" class="headerlink" title="→ Linux 的常用命令"></a><strong>→ Linux 的常用命令</strong></h4><h4 id="→-进程间通信"><a href="#→-进程间通信" class="headerlink" title="→ 进程间通信"></a><strong>→ 进程间通信</strong></h4><h4 id="→-进程同步"><a href="#→-进程同步" class="headerlink" title="→ 进程同步"></a><strong>→ 进程同步</strong></h4><p>生产者消费者问题、哲学家就餐问题、读者写者问题</p>
+<h4 id="→-缓冲区溢出"><a href="#→-缓冲区溢出" class="headerlink" title="→ 缓冲区溢出"></a><strong>→ 缓冲区溢出</strong></h4><h4 id="→-分段和分页"><a href="#→-分段和分页" class="headerlink" title="→ 分段和分页"></a><strong>→ 分段和分页</strong></h4><h4 id="→-虚拟内存与主存"><a href="#→-虚拟内存与主存" class="headerlink" title="→ 虚拟内存与主存"></a><strong>→ 虚拟内存与主存</strong></h4><h4 id="→-虚拟内存管理"><a href="#→-虚拟内存管理" class="headerlink" title="→ 虚拟内存管理"></a><strong>→ 虚拟内存管理</strong></h4><h4 id="→-换页算法"><a href="#→-换页算法" class="headerlink" title="→ 换页算法"></a><strong>→ 换页算法</strong></h4><h2 id="数据库知识"><a href="#数据库知识" class="headerlink" title="数据库知识"></a>数据库知识</h2><p><strong>→ MySQL 执行引擎</strong></p>
+<h4 id="→-MySQL-执行计划"><a href="#→-MySQL-执行计划" class="headerlink" title="→ MySQL 执行计划"></a><strong>→ MySQL 执行计划</strong></h4><p>如何查看执行计划，如何根据执行计划进行 SQL 优化</p>
+<h4 id="→-索引"><a href="#→-索引" class="headerlink" title="→ 索引"></a><strong>→ 索引</strong></h4><p>Hash 索引、B 树索引（B+树、和B树、R树）</p>
+<p>普通索引、唯一索引</p>
+<p>覆盖索引、最左前缀原则、索引下推</p>
+<h4 id="→-SQL-优化"><a href="#→-SQL-优化" class="headerlink" title="→ SQL 优化"></a><strong>→ SQL 优化</strong></h4><h4 id="→-数据库事务和隔离级别"><a href="#→-数据库事务和隔离级别" class="headerlink" title="→ 数据库事务和隔离级别"></a><strong>→ 数据库事务和隔离级别</strong></h4><p>事务的隔离级别、事务能不能实现锁的功能</p>
+<h4 id="→-数据库锁"><a href="#→-数据库锁" class="headerlink" title="→ 数据库锁"></a><strong>→ 数据库锁</strong></h4><p>行锁、表锁、使用数据库锁实现乐观锁、</p>
+<h4 id="→-连接"><a href="#→-连接" class="headerlink" title="→ 连接"></a><strong>→ 连接</strong></h4><p>内连接，左连接，右连接</p>
+<h4 id="→-数据库主备搭建"><a href="#→-数据库主备搭建" class="headerlink" title="→ 数据库主备搭建"></a><strong>→ 数据库主备搭建</strong></h4><h4 id="→-binlog"><a href="#→-binlog" class="headerlink" title="→ binlog"></a><strong>→ binlog</strong></h4><h4 id="→-redolog"><a href="#→-redolog" class="headerlink" title="→ redolog"></a><strong>→ redolog</strong></h4><h4 id="→-内存数据库"><a href="#→-内存数据库" class="headerlink" title="→ 内存数据库"></a><strong>→ 内存数据库</strong></h4><p>h2</p>
+<h4 id="→-分库分表"><a href="#→-分库分表" class="headerlink" title="→ 分库分表"></a><strong>→ 分库分表</strong></h4><h4 id="→-读写分离"><a href="#→-读写分离" class="headerlink" title="→ 读写分离"></a><strong>→ 读写分离</strong></h4><h4 id="→-常用的-NoSql-数据库"><a href="#→-常用的-NoSql-数据库" class="headerlink" title="→ 常用的 NoSql 数据库"></a><strong>→ 常用的 NoSql 数据库</strong></h4><p>redis、memcached</p>
+<h4 id="→-分别使用数据库锁、NoSql-实现分布式锁"><a href="#→-分别使用数据库锁、NoSql-实现分布式锁" class="headerlink" title="→ 分别使用数据库锁、NoSql 实现分布式锁"></a><strong>→ 分别使用数据库锁、NoSql 实现分布式锁</strong></h4><h4 id="→-性能调优"><a href="#→-性能调优" class="headerlink" title="→ 性能调优"></a><strong>→ 性能调优</strong></h4><h4 id="→-数据库连接池"><a href="#→-数据库连接池" class="headerlink" title="→ 数据库连接池"></a><strong>→ 数据库连接池</strong></h4><h2 id="数据结构与算法知识"><a href="#数据结构与算法知识" class="headerlink" title="数据结构与算法知识"></a>数据结构与算法知识</h2><p><strong>→ 简单的数据结构</strong></p>
+<p>栈、队列、链表、数组、哈希表、</p>
+<p>栈和队列的相同和不同之处</p>
+<p>栈通常采用的两种存储结构</p>
+<h4 id="→-树"><a href="#→-树" class="headerlink" title="→ 树"></a><strong>→ 树</strong></h4><p>二叉树、字典树、平衡树、排序树、</p>
+<p>B 树、B+ 树、R 树、多路树、红黑树</p>
+<h4 id="→-堆"><a href="#→-堆" class="headerlink" title="→ 堆"></a><strong>→ 堆</strong></h4><p>大根堆、小根堆</p>
+<h4 id="→-图"><a href="#→-图" class="headerlink" title="→ 图"></a><strong>→ 图</strong></h4><p>有向图、无向图、拓扑</p>
+<h4 id="→-排序算法"><a href="#→-排序算法" class="headerlink" title="→ 排序算法"></a><strong>→ 排序算法</strong></h4><p>稳定的排序：冒泡排序、插入排序、鸡尾酒排序、桶排序、计数排序、归并排序、原地归并排序、二叉排序树排序、鸽巢排序、基数排序、侏儒排序、图书馆排序、块排序</p>
+<p>不稳定的排序：选择排序、希尔排序、Clover 排序算法、梳排序、堆排序、平滑排序、快速排序、内省排序、耐心排序</p>
+<p>各种排序算法和时间复杂度 </p>
+<h4 id="→-两个栈实现队列，和两个队列实现栈"><a href="#→-两个栈实现队列，和两个队列实现栈" class="headerlink" title="→ 两个栈实现队列，和两个队列实现栈"></a><strong>→ 两个栈实现队列，和两个队列实现栈</strong></h4><h4 id="→-深度优先和广度优先搜索"><a href="#→-深度优先和广度优先搜索" class="headerlink" title="→ 深度优先和广度优先搜索"></a><strong>→ 深度优先和广度优先搜索</strong></h4><h4 id="→-全排列、贪心算法、KMP-算法、hash-算法"><a href="#→-全排列、贪心算法、KMP-算法、hash-算法" class="headerlink" title="→ 全排列、贪心算法、KMP 算法、hash 算法"></a><strong>→</strong> <strong>全排列、贪心算法、KMP 算法、hash 算法</strong></h4><h4 id="→-海量数据处理"><a href="#→-海量数据处理" class="headerlink" title="→ 海量数据处理"></a><strong>→</strong> <strong>海量数据处理</strong></h4><p>分治，hash 映射，堆排序，双层桶划分，Bloom Filter，bitmap，数据库索引，mapreduce 等。</p>
+<h2 id="大数据知识"><a href="#大数据知识" class="headerlink" title="大数据知识"></a>大数据知识</h2><p><strong>→ Zookeeper</strong></p>
+<p>基本概念、常见用法</p>
+<h4 id="→-Solr，Lucene，ElasticSearch"><a href="#→-Solr，Lucene，ElasticSearch" class="headerlink" title="→ Solr，Lucene，ElasticSearch"></a><strong>→ Solr，Lucene，ElasticSearch</strong></h4><p>在 linux 上部署 solr，solrcloud，新增、删除、查询索引</p>
+<h4 id="→-Storm，流式计算，了解-Spark，S4"><a href="#→-Storm，流式计算，了解-Spark，S4" class="headerlink" title="→ Storm，流式计算，了解 Spark，S4"></a><strong>→ Storm，流式计算，了解 Spark，S4</strong></h4><p>在 linux 上部署 storm，用 zookeeper 做协调，运行 storm hello world，local 和 remote 模式运行调试 storm topology。</p>
+<h4 id="→-Hadoop，离线计算"><a href="#→-Hadoop，离线计算" class="headerlink" title="→ Hadoop，离线计算"></a><strong>→ Hadoop，离线计算</strong></h4><p>HDFS、MapReduce</p>
+<h4 id="→-分布式日志收集-flume，kafka，logstash"><a href="#→-分布式日志收集-flume，kafka，logstash" class="headerlink" title="→ 分布式日志收集 flume，kafka，logstash"></a><strong>→ 分布式日志收集 flume，kafka，logstash</strong></h4><h4 id="→-数据挖掘，mahout"><a href="#→-数据挖掘，mahout" class="headerlink" title="→ 数据挖掘，mahout"></a><strong>→ 数据挖掘，mahout</strong></h4><h2 id="网络安全知识"><a href="#网络安全知识" class="headerlink" title="网络安全知识"></a>网络安全知识</h2><p><strong>→ XSS</strong></p>
+<p>XSS 的防御</p>
+<h4 id="→-CSRF"><a href="#→-CSRF" class="headerlink" title="→ CSRF"></a><strong>→ CSRF</strong></h4><h4 id="→-注入攻击"><a href="#→-注入攻击" class="headerlink" title="→ 注入攻击"></a><strong>→ 注入攻击</strong></h4><p>SQL 注入、XML 注入、CRLF 注入</p>
+<h4 id="→-文件上传漏洞"><a href="#→-文件上传漏洞" class="headerlink" title="→ 文件上传漏洞"></a><strong>→ 文件上传漏洞</strong></h4><h4 id="→-加密与解密"><a href="#→-加密与解密" class="headerlink" title="→ 加密与解密"></a><strong>→ 加密与解密</strong></h4><p>对称加密、非对称加密、哈希算法、加盐哈希算法</p>
+<p>MD5，SHA1、DES、AES、RSA、DSA</p>
+<p>彩虹表</p>
+<h4 id="→-DDOS攻击"><a href="#→-DDOS攻击" class="headerlink" title="→ DDOS攻击"></a><strong>→ DDOS攻击</strong></h4><p>DOS 攻击、DDOS 攻击</p>
+<p>memcached 为什么可以导致 DDos 攻击、什么是反射型 DDoS</p>
+<p>如何通过 Hash 碰撞进行 DOS 攻击</p>
+<h4 id="→-SSL、TLS，HTTPS"><a href="#→-SSL、TLS，HTTPS" class="headerlink" title="→ SSL、TLS，HTTPS"></a><strong>→</strong> <strong>SSL、TLS，HTTPS</strong></h4><h4 id="→-用-openssl-签一个证书部署到-apache-或-nginx"><a href="#→-用-openssl-签一个证书部署到-apache-或-nginx" class="headerlink" title="→ 用 openssl 签一个证书部署到 apache 或 nginx"></a><strong>→ 用 openssl 签一个证书部署到 apache 或 nginx</strong></h4><h1 id="五、架构篇"><a href="#五、架构篇" class="headerlink" title="五、架构篇"></a>五、架构篇</h1><h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><p>数据一致性、服务治理、服务降级</p>
+<h4 id="→-分布式事务"><a href="#→-分布式事务" class="headerlink" title="→ 分布式事务"></a><strong>→ 分布式事务</strong></h4><p>2PC、3PC、CAP、BASE、 可靠消息最终一致性、最大努力通知、TCC</p>
+<h4 id="→-Dubbo"><a href="#→-Dubbo" class="headerlink" title="→ Dubbo"></a><strong>→ Dubbo</strong></h4><p>服务注册、服务发现，服务治理</p>
+<p><a href="http://dubbo.apache.org/zh-cn/" target="_blank" rel="noopener">http://dubbo.apache.org/zh-cn/</a></p>
+<h4 id="→-分布式数据库"><a href="#→-分布式数据库" class="headerlink" title="→ 分布式数据库"></a><strong>→ 分布式数据库</strong></h4><p>怎样打造一个分布式数据库、什么时候需要分布式数据库、</p>
+<p>mycat、otter、HBase</p>
+<h4 id="→-分布式文件系统"><a href="#→-分布式文件系统" class="headerlink" title="→ 分布式文件系统"></a><strong>→ 分布式文件系统</strong></h4><p>mfs、fastdfs</p>
+<h4 id="→-分布式缓存"><a href="#→-分布式缓存" class="headerlink" title="→ 分布式缓存"></a><strong>→ 分布式缓存</strong></h4><p>缓存一致性、缓存命中率、缓存冗余</p>
+<h4 id="→-限流降级"><a href="#→-限流降级" class="headerlink" title="→ 限流降级"></a><strong>→ 限流降级</strong></h4><p>Hystrix、Sentinal</p>
+<h4 id="→-算法"><a href="#→-算法" class="headerlink" title="→ 算法"></a><strong>→ 算法</strong></h4><p>共识算法、Raft 协议、Paxos 算法与 Raft 算法、</p>
+<p>拜占庭问题与算法、2PC、3PC</p>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>SOA、康威定律</p>
+<h4 id="→-ServiceMesh"><a href="#→-ServiceMesh" class="headerlink" title="→ ServiceMesh"></a><strong>→ ServiceMesh</strong></h4><p>sidecar</p>
+<h4 id="→-Docker-amp-Kubernets"><a href="#→-Docker-amp-Kubernets" class="headerlink" title="→ Docker &amp; Kubernets"></a><strong>→ Docker &amp; Kubernets</strong></h4><h4 id="→-Spring-Boot-1"><a href="#→-Spring-Boot-1" class="headerlink" title="→ Spring Boot"></a><strong>→ Spring Boot</strong></h4><h4 id="→-Spring-Cloud-1"><a href="#→-Spring-Cloud-1" class="headerlink" title="→ Spring Cloud"></a><strong>→ Spring Cloud</strong></h4><h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h2><p><strong>→ 分库分表</strong></p>
+<h4 id="→-CDN-技术"><a href="#→-CDN-技术" class="headerlink" title="→ CDN 技术"></a><strong>→ CDN 技术</strong></h4><h4 id="→-消息队列"><a href="#→-消息队列" class="headerlink" title="→ 消息队列"></a><strong>→ 消息队列</strong></h4><p>ActiveMQ</p>
+<h2 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h2><p><strong>→ 监控什么</strong></p>
+<p>CPU、内存、磁盘 I/O、网络 I/O 等</p>
+<h4 id="→-监控手段"><a href="#→-监控手段" class="headerlink" title="→ 监控手段"></a><strong>→ 监控手段</strong></h4><p>进程监控、语义监控、机器资源监控、数据波动</p>
+<h4 id="→-监控数据采集"><a href="#→-监控数据采集" class="headerlink" title="→ 监控数据采集"></a><strong>→ 监控数据采集</strong></h4><p>日志、埋点</p>
+<h4 id="→-Dapper"><a href="#→-Dapper" class="headerlink" title="→ Dapper"></a><strong>→ Dapper</strong></h4><h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>tomcat 负载均衡、Nginx 负载均衡</p>
+<p>四层负载均衡、七层负载均衡</p>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>DNS 原理、DNS 的设计</p>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>数据一致性</p>
+<h1 id="六、扩展篇"><a href="#六、扩展篇" class="headerlink" title="六、扩展篇"></a>六、扩展篇</h1><h2 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h2><p>IaaS、SaaS、PaaS、虚拟化技术、openstack、Serverlsess</p>
+<h2 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h2><p>Solr、Lucene、Nutch、Elasticsearch</p>
+<h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><p>Shiro</p>
+<h2 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h2><p>哈希算法、Merkle 树、公钥密码算法、共识算法、</p>
+<p>Raft 协议、Paxos 算法与 Raft 算法、拜占庭问题与算法、消息认证码与数字签名</p>
+<h4 id="→-比特币"><a href="#→-比特币" class="headerlink" title="→ 比特币"></a><strong>→ 比特币</strong></h4><p>挖矿、共识机制、闪电网络、侧链、热点问题、分叉</p>
+<h4 id="→-以太坊"><a href="#→-以太坊" class="headerlink" title="→ 以太坊"></a><strong>→ 以太坊</strong></h4><h4 id="→-超级账本"><a href="#→-超级账本" class="headerlink" title="→ 超级账本"></a><strong>→ 超级账本</strong></h4><h2 id="人工智能"><a href="#人工智能" class="headerlink" title="人工智能"></a>人工智能</h2><p>数学基础、机器学习、人工神经网络、深度学习、应用场景。</p>
+<h4 id="→-常用框架"><a href="#→-常用框架" class="headerlink" title="→ 常用框架"></a><strong>→ 常用框架</strong></h4><p>TensorFlow、DeepLearning4J</p>
+<h2 id="其他语言"><a href="#其他语言" class="headerlink" title="其他语言"></a>其他语言</h2><p>Groovy、Python、Go、NodeJs、Swift、Rust</p>
+<h1 id="七、推荐书籍"><a href="#七、推荐书籍" class="headerlink" title="七、推荐书籍"></a>七、推荐书籍</h1><p>《深入理解 Java 虚拟机》<br>《Effective Java》<br>《深入分析 Java Web 技术内幕》<br>《大型网站技术架构》<br>《代码整洁之道》<br>《架构整洁之道》<br>《Head First 设计模式》<br>《maven 实战》<br>《区块链原理、设计与应用》<br>《Java 并发编程实战》<br>《鸟哥的 Linux 私房菜》<br>《从Paxos 到 Zookeeper》<br>《架构即未来》</p>
+
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">Reprint please specify: </span>
+                    <a href="https://asiacuityz.github.io" class="b-link-green">Asia</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/02/20/Java成神之路/" class="b-link-green">Java成神之路</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">Current</div>
+            <div class="card">
+                <a href="/2019/02/20/Java成神之路/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Java成神之路">
+                        
+                        <span class="card-title">Java成神之路</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一、基础篇面向对象→ 什么是面向对象面向对象、面向过程
+面向对象的三大基本特征和五大基本原则
+→ 平台无关性Java 如何实现的平台无关
+JVM 还支持哪些语言（Kotlin、Groovy、JRuby、Jython、Scala）
+→ 值传递</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java成神之路/" class="post-category" target="_blank">
+                                    Java成神之路
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/道/" target="_blank">
+                        <span class="chip bg-color">道</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">Next</div>
+            <div class="card">
+                <a href="/2019/02/16/JVM内存模型/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="JVM内存模型">
+                        
+                        <span class="card-title">JVM内存模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">
+Java 开发有个很基础的问题，虽然我们平时接触的不多，但是了解它却成为 Java 开发的必备基础——这就是 JVM。在 C++ 中我们需要手动申请内存然后释放内存，否则就会出现对象已经不再使用内存却仍被占用的情况。在 Java 中 JV</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-02-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JVM内存模型/" class="post-category" target="_blank">
+                                    JVM内存模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/道/" target="_blank">
+                        <span class="chip bg-color">道</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">TOC</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            <!--本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 采用
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>的主题搭建. -->
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131536389-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131536389-1');
+</script>
+
+
+</body>
+</html>

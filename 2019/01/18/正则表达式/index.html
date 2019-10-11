@@ -1,0 +1,814 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="20个常用正则表达式, Asia">
+    <meta name="description" content="正则表达式在线测试工具
+
+http://tool.oschina.net/regex/
+
+1 . 校验密码强度
+密码的强度必须是包含大小写字母和数字的组合，不能使用特殊字符，长度在 8-10 之间。
+
+^(?=.\d)(?=.[a-z])(">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>20个常用正则表达式 | Asia</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-base16-ateliersulphurpool.light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Asia</span>
+                    </a>
+                </div>
+                <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/utils" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-book"></i>
+            
+            <span>工具</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/doc" class="waves-effect waves-light">
+            
+            <i class="fa fa fa-wordpress"></i>
+            
+            <span>文档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>伙伴</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Asia</div>
+        <div class="logo-desc">
+            
+            不心累
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/utils" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-book"></i>
+                
+                工具
+            </a>
+        </li>
+        
+        <li>
+            <a href="/doc" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa fa-wordpress"></i>
+                
+                文档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                伙伴
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/asiacuityz" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>关于
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/asiacuityz" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="关于" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        20个常用正则表达式
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/干货/" target="_blank">
+                    <span class="chip bg-color">干货</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/正则/" class="post-category" target="_blank">
+                        正则
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2019-01-18
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>正则表达式在线测试工具</strong></p>
+<blockquote>
+<p><a href="http://tool.oschina.net/regex/" target="_blank" rel="noopener">http://tool.oschina.net/regex/</a></p>
+</blockquote>
+<p><strong>1 . 校验密码强度</strong></p>
+<p>密码的强度必须是包含大小写字母和数字的组合，不能使用特殊字符，长度在 8-10 之间。</p>
+<blockquote>
+<p>^(?=.<em>\d)(?=.</em>[a-z])(?=.*[A-Z]).{8,10}$</p>
+</blockquote>
+<p><strong>2. 校验中文</strong></p>
+<p>字符串仅能是中文。</p>
+<blockquote>
+<p>^[\ 一 -\ 龥]{0,}$</p>
+</blockquote>
+<p><strong>3. 由数字、26 个英文字母或下划线组成的字符串</strong></p>
+<blockquote>
+<p>^\w+$</p>
+</blockquote>
+<p><strong>4. 校验 E-Mail 地址</strong></p>
+<p>同密码一样，下面是 E-mail 地址合规性的正则检查语句。</p>
+<blockquote>
+<p>[\w!#$%&amp;’<em>+/=?^_`{|}~-]+(?:.[\w!#$%&amp;’</em>+/=?^_`{|}~-]+)<em>@(?:[\w](?:[\w-]</em>[\w])?.)+<a href="?:[\w-]*[\w]">\w</a>?</p>
+</blockquote>
+<p><strong>5. 校验身份证号码</strong></p>
+<p>下面是身份证号码的正则校验。15 或 18 位。</p>
+<p>15 位：</p>
+<blockquote>
+<p>^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$</p>
+</blockquote>
+<p>18 位：</p>
+<blockquote>
+<p>^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$</p>
+</blockquote>
+<p><strong>6. 校验日期</strong></p>
+<p>“yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。</p>
+<blockquote>
+<p>^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$</p>
+</blockquote>
+<p><strong>7. 校验金额</strong></p>
+<p>金额校验，精确到 2 位小数。</p>
+<blockquote>
+<p>^[0-9]+(.[0-9]{2})?$</p>
+</blockquote>
+<p><strong>8. 校验手机号</strong></p>
+<p>下面是国内 13、15、18 开头的手机号正则表达式。（可根据目前国内收集号扩展前两位开头号码）</p>
+<blockquote>
+<p>^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$</p>
+</blockquote>
+<p><strong>9. 判断 IE 的版本</strong></p>
+<p>IE 目前还没被完全取代，很多页面还是需要做版本兼容，下面是 IE 版本检查的表达式。</p>
+<blockquote>
+<p>^.<em>MSIE <a href="?:\.[0-9]+">5-8</a>?(?!.</em>Trident\/[5-9].0).*$</p>
+</blockquote>
+<p><strong>10. 校验 IP-v4 地址</strong></p>
+<p>IP4 正则语句。</p>
+<blockquote>
+<p>\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b</p>
+</blockquote>
+<p><strong>11. 校验 IP-v6 地址</strong></p>
+<p>IP6 正则语句。</p>
+<blockquote>
+<p>(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))</p>
+</blockquote>
+<p><strong>12. 检查 URL 的前缀</strong></p>
+<p>应用开发中很多时候需要区分请求是 HTTPS 还是 HTTP，通过下面的表达式可以取出一个 url 的前缀然后再逻辑判断。</p>
+<blockquote>
+<p>if (!s.match(/^[a-zA-Z]+:\/\//)){ s = ‘http://‘ + s;}</p>
+</blockquote>
+<p><strong>13. 提取 URL 链接</strong></p>
+<p>下面的这个表达式可以筛选出一段文本中的 URL。</p>
+<blockquote>
+<p>^(f|ht){1}(tp|tps):\/\/([\w-]+.)+[\w-]+(\/[\w- ./?%&amp;=]*)?</p>
+</blockquote>
+<p><strong>14. 文件路径及扩展名校验</strong></p>
+<p>验证 windows 下文件路径和扩展名（下面的例子中为. txt 文件）</p>
+<blockquote>
+<p>^([a-zA-Z]\:|\)\([^\]+\)<em>[^\/:</em>?”&lt;&gt;|]+.txt(l)?$</p>
+</blockquote>
+<p><strong>15. 提取 Color Hex Codes</strong></p>
+<p>有时需要抽取网页中的颜色代码，可以使用下面的表达式。</p>
+<blockquote>
+<p>^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$</p>
+</blockquote>
+<p><strong>16. 提取网页图片</strong></p>
+<p>假若你想提取网页中所有图片信息，可以利用下面的表达式。</p>
+<blockquote>
+<p>\&lt;<em>[img][^\&gt;]</em>[src] <em>= </em>[\”\’]{0,1}([^\”\’\ &gt;]*)</p>
+</blockquote>
+<p><strong>17. 提取页面超链接</strong></p>
+<p>提取 html 中的超链接。</p>
+<blockquote>
+<p>(&lt;a\s<em>(?!.</em>\brel=)[^&gt;]<em>)(href=”https?:\/\/)((?!(?:(?:www.)?’.implode(‘|(?:www.)?’, $follow_list).’))[^”]+)”((?!.</em>\brel=)[^&gt;]<em>)(?:[^&gt;]</em>)&gt;</p>
+</blockquote>
+<p><strong>18. 查找 CSS 属性</strong></p>
+<p>通过下面的表达式，可以搜索到相匹配的 CSS 属性。</p>
+<blockquote>
+<p>^\s<em>[a-zA-Z-]+\s</em>[:]{1}\s[a-zA-Z0-9\s.#]+[;]{1}</p>
+</blockquote>
+<p><strong>19. 抽取注释</strong></p>
+<p>如果你需要移除 HMTL 中的注释，可以使用如下的表达式。</p>
+<blockquote>
+<!--(.*?)-->
+</blockquote>
+<p><strong>20. 匹配 HTML 标签</strong></p>
+<p>通过下面的表达式可以匹配出 HTML 中的标签属性。</p>
+<blockquote>
+<p>&lt;\/?\w+((\s+\w+(\s<em>=\s</em>(?:”.<em>?”|’.</em>?’|[\^’”&gt;\s]+))?)+\s<em>|\s</em>)\/?&gt;</p>
+</blockquote>
+
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">Reprint please specify: </span>
+                    <a href="https://asiacuityz.github.io" class="b-link-green">Asia</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/01/18/正则表达式/" class="b-link-green">20个常用正则表达式</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">Previous</div>
+            <div class="card">
+                <a href="/2019/01/18/Java开发知名网站/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Java开发知名网站">
+                        
+                        <span class="card-title">Java开发知名网站</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">
+https://stackoverflow.com
+
+
+里面包含各种开发遇到的问题及答案，质量比较高。
+
+https://github.com/
+
+
+免费的开源代码托管网站，包括了许多开源的项目及示例项目等。
+
+https://dzone</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/学习网站/" class="post-category" target="_blank">
+                                    学习网站
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/干货/" target="_blank">
+                        <span class="chip bg-color">干货</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">Next</div>
+            <div class="card">
+                <a href="/2019/01/18/跨域解决方案/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="跨域解决方案">
+                        
+                        <span class="card-title">跨域解决方案</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">跨域简介在浏览器端进行 Ajax 请求时会出现跨域问题，那么什么是跨域，如何解决跨域呢？先看浏览器端出现跨域问题的现象，如下图所示
+
+什么是跨域问题？跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对 Jav</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-01-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/跨域问题解决方案/" class="post-category" target="_blank">
+                                    跨域问题解决方案
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/跨域/" target="_blank">
+                        <span class="chip bg-color">跨域</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">TOC</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            <!--本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 采用
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>的主题搭建. -->
+        </div>
+        <div class="col s12 m4 l4 social-link"><a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="asiacuiyz@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="#!" class="tooltipped" data-tooltip="QQ联系我: 476494273" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+
+<script src="/js/matery.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131536389-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-131536389-1');
+</script>
+
+
+</body>
+</html>
